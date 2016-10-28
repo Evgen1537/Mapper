@@ -15,7 +15,7 @@
     <name>Mapper Nano</name>
 
     <scm>
-        <connection>scm:svn:https://svn.code.sf.net/p/hnh-mapper/code/</connection>
+        <connection>scm:git:https://git.code.sf.net/p/hnh-mapper/code/</connection>
         <tag>HEAD</tag>
     </scm>
 
