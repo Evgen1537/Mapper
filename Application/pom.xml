@@ -133,7 +133,8 @@
                         </executions>
                         <configuration>
                             <doCheck>false</doCheck>
-                            <doUpdate>true</doUpdate>
+                            <doUpdate>false</doUpdate>
+                            <shortRevisionLength>6</shortRevisionLength>
                         </configuration>
                     </plugin>
 
