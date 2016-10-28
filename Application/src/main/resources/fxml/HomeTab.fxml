@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<HBox xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.main.toolbar.HomeTab">
+   <children>
+      <BorderPane>
+         <bottom>
+            <Label text="Layer" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <HBox spacing="4.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuButton fx:id="addLayerGroup" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="big-button" text="Add">
+                     <items>
+                        <MenuItem fx:id="addSession" mnemonicParsing="false" text="Session">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/plus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="addManySessions" mnemonicParsing="false" text="Many sessions">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/folder--plus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/plus_32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MenuButton>
+                  <MenuButton fx:id="mergeGroup" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="big-button" text="Merge" HBox.hgrow="SOMETIMES">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/arrow-merge-090_32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <items>
+                        <MenuItem fx:id="mergeTogether" mnemonicParsing="false" text="Together">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/arrow-join.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="mergeWithGlobal" mnemonicParsing="false" text="With global">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/arrow-merge-090.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                  </MenuButton>
+                  <Separator orientation="VERTICAL" />
+                  <VBox spacing="2.0">
+                     <children>
+                        <Button fx:id="generateLevels" mnemonicParsing="false" styleClass="regular-button" text="Generate">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/layers-stack.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="refreshLayer" mnemonicParsing="false" styleClass="regular-button" text="Refresh">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/arrow-circle-double.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="findMatches" mnemonicParsing="false" styleClass="regular-button" text="Find matches">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/magnifier-zoom-fit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Button fx:id="deleteLayer" mnemonicParsing="false" styleClass="regular-button" text="Delete">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/bin-metal-full.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="exportToFolder" mnemonicParsing="false" styleClass="regular-button" text="Export to folder">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/folder--arrow.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" />
+                  <MenuButton fx:id="orderGroup" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="big-button" text="Order">
+                     <items>
+                        <MenuItem fx:id="bringToFront" mnemonicParsing="false" text="Bring To Front">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/layers-stack-arrange.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="sendToBack" mnemonicParsing="false" text="Send To Back">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/layers-stack-arrange-back.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="bringForward" mnemonicParsing="false" text="Bring Forward">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/layers-arrange.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="sendBackward" mnemonicParsing="false" text="Send Backward">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/layers-arrange-back.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/layers32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+                  <MenuButton fx:id="visibleGroup" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="big-button" text="Visible">
+                     <items>
+                        <MenuItem fx:id="fullVisible" mnemonicParsing="false" text="Full">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/eye.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="partlyVisible" mnemonicParsing="false" text="Partly">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/eye-half.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="invisible" mnemonicParsing="false" text="None">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/eye-close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/eye32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+               </children>
+            </HBox>
+         </center>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+      <BorderPane>
+         <bottom>
+            <Label text="Marker" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+         <center>
+            <HBox spacing="4.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuButton fx:id="addMarkerGroup" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="big-button" text="Add">
+                     <items>
+                        <MenuItem fx:id="addPointMarker" mnemonicParsing="false" text="Point">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/status-away.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="addAreaMarker" mnemonicParsing="false" text="Area">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/map_marker.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="addTrackMarker" mnemonicParsing="false" text="Track">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/flag-blue.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="addEntranceMarker" mnemonicParsing="false" text="Entrance">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/door.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/plus_marker_32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MenuButton>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Button fx:id="editMarker" mnemonicParsing="false" styleClass="regular-button" text="Edit">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/pencil.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="deleteMarker" mnemonicParsing="false" styleClass="regular-button" text="Delete">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/bin-metal-full.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ToggleButton fx:id="hideMarkers" mnemonicParsing="false" styleClass="regular-button" text="Hide markers">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/eye-red.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+      <BorderPane fx:id="toolsGroup1">
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+         <bottom>
+            <Label text="Tracker" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <VBox>
+               <children>
+                  <ToggleButton fx:id="startTracking" mnemonicParsing="false" prefHeight="50.0" prefWidth="54.0" styleClass="big-split-button-bpart">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tracker" />
+                     </toggleGroup>
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/control.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="pauseTracking" mnemonicParsing="false" prefHeight="26.0" prefWidth="54.0" selected="true" styleClass="big-split-button-spart" toggleGroup="$tracker">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/control-pause.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+               </children>
+               <padding>
+                  <Insets right="4.0" />
+               </padding>
+            </VBox>
+         </center>
+         <right>
+            <Button fx:id="toPlayer" mnemonicParsing="false" styleClass="regular-button" text="To player" BorderPane.alignment="TOP_LEFT">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/smiley.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </right>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+      <BorderPane>
+         <bottom>
+            <Label text="Tools" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <HBox spacing="4.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox spacing="2.0">
+                     <children>
+                         <MenuButton fx:id="selectionGroup" alignment="CENTER" mnemonicParsing="false" styleClass="regular-menu" text="Selection">
+                             <items>
+                                 <RadioMenuItem fx:id="selectionAll" mnemonicParsing="false" text="All">
+                                     <toggleGroup>
+                                         <ToggleGroup fx:id="selection" />
+                                     </toggleGroup>
+                                 </RadioMenuItem>
+                                 <RadioMenuItem fx:id="selectionLayer" mnemonicParsing="false" text="Layer" toggleGroup="$selection" />
+                                 <RadioMenuItem fx:id="selectionMarker" mnemonicParsing="false" text="Marker" toggleGroup="$selection" />
+                             </items>
+                             <graphic>
+                                 <ImageView pickOnBounds="true" preserveRatio="true">
+                                     <image>
+                                         <Image url="@../image/selection.png" />
+                                     </image>
+                                 </ImageView>
+                             </graphic>
+                         </MenuButton>
+                        <ToggleButton fx:id="showRuler" mnemonicParsing="false" styleClass="regular-button" text="Ruler">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/ui-ruler.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <ToggleButton fx:id="showGrid" mnemonicParsing="false" styleClass="regular-button" text="Grid">
+                           <graphic>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/grid.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+   </children>
+</HBox>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<VBox spacing="4.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.MarkerBrowser">
+   <children>
+      <HBox spacing="4.0">
+         <children>
+            <TextField fx:id="searchField" promptText="Search" HBox.hgrow="ALWAYS" />
+            <ToggleButton fx:id="onlyVisibleSwitch" mnemonicParsing="false" text="Only visible" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <TableView fx:id="markerList" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="iconColumn" maxWidth="24.0" minWidth="24.0" prefWidth="24.0" sortable="false" />
+          <TableColumn fx:id="nameColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Name" />
+            <TableColumn fx:id="essenceColumn" maxWidth="40.0" minWidth="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/essence.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+            <TableColumn fx:id="substanceColumn" maxWidth="40.0" minWidth="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/substance.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+            <TableColumn fx:id="vitalityColumn" maxWidth="40.0" minWidth="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/vitality.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+        </columns>
+      </TableView>
+   </children>
+   <padding>
+      <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+   </padding>
+</VBox>

@@ -1,0 +1,1 @@
+select mi from MarkerIcon mi where mi.name = :name

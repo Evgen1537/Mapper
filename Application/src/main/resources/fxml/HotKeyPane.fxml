@@ -1,0 +1,27 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.settings.hotkey.HotKeyPane">
+    <children>
+        <Label text="Hot Keys">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label text="Double click for changing, Esc for cancel" textFill="#a4a4a4">
+            <font>
+                <Font size="10.0" />
+            </font>
+        </Label>
+        <TreeView fx:id="hotKeyView" prefHeight="250.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+                <Insets top="4.0" />
+            </VBox.margin>
+        </TreeView>
+    </children>
+    <padding>
+        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+    </padding>
+</VBox>

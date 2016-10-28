@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane hgap="4.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.GlobalLayerView">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="ALWAYS" />
+      <ColumnConstraints hgrow="NEVER" />
+      <ColumnConstraints hgrow="NEVER" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints vgrow="NEVER" />
+      <RowConstraints vgrow="NEVER" />
+   </rowConstraints>
+   <children>
+      <ImageView fx:id="image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.rowSpan="2" />
+      <Label fx:id="name" text="Label" GridPane.columnIndex="1" />
+      <Label fx:id="count" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="visibility" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+      <MenuButton fx:id="menu" mnemonicParsing="false" styleClass="dot-button" GridPane.columnIndex="3" GridPane.rowSpan="2">
+         <graphic>
+            <Pane styleClass="dot-shape" />
+         </graphic>
+         <GridPane.margin>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </GridPane.margin>
+         <items>
+            <MenuItem fx:id="generateLevels" mnemonicParsing="false" text="Generate levels">
+                <graphic>
+                    <ImageView pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../image/layers-stack.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </MenuItem>
+             <MenuItem fx:id="export" mnemonicParsing="false" text="Export to folder">
+                 <graphic>
+                     <ImageView pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../image/folder--arrow.png" />
+                         </image>
+                     </ImageView>
+                 </graphic>
+             </MenuItem>
+             <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="up" mnemonicParsing="false" text="Up">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/arrow-090.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuItem>
+            <MenuItem fx:id="down" mnemonicParsing="false" text="Down">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/arrow-270.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+          <MenuItem fx:id="full" mnemonicParsing="false" text="Full">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/eye.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuItem>
+            <MenuItem fx:id="partly" mnemonicParsing="false" text="Partly">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/eye-half.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuItem>
+            <MenuItem fx:id="none" mnemonicParsing="false" text="None">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/eye-close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuItem>
+         </items>
+      </MenuButton>
+   </children>
+</GridPane>

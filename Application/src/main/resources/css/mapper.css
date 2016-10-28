@@ -1,0 +1,124 @@
+/****************************************************************/
+/*                                                              */
+/*    Side button for dock pane                                 */
+/*                                                              */
+/****************************************************************/
+
+.status-bar-button  {
+    -fx-background-color:  -fx-body-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+}
+
+.side-bar-button    {
+    -fx-background-color: -fx-body-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 2 6 2 6;
+    -fx-min-width: 70;
+    -fx-min-height: 20
+}
+
+.side-bar-button:selected  {
+    -fx-background-color: derive(-fx-base,-25%);
+}
+
+.side-bar-indicator {
+    -fx-background-color: orange;
+    -fx-max-height: 10;
+    -fx-max-width: 10;
+    -fx-translate-x: 6;
+    -fx-translate-y: -2;
+    -fx-shape: "M0 0 L5 0 L5 5 Z";
+}
+
+/****************************************************************/
+/*                                                              */
+/*    Inline button                                             */
+/*                                                              */
+/****************************************************************/
+
+.inline-button {
+    -fx-background-color: rgba(255,255,255,0);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.inline-button:hover {
+    -fx-background-color: -fx-body-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 2;
+    -fx-padding: 0;
+}
+
+.inline-button:selected  {
+    -fx-background-color: derive(-fx-base,-25%);
+}
+
+/****************************************************************/
+/*                                                              */
+/*    Dot Button                                                */
+/*                                                              */
+/****************************************************************/
+
+.dot-button {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.dot-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.dot-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.dot-shape {
+    -fx-shape: "M3,1a1,1 0 1,0 2,0a1,1 0 1,0 -2,0 M3,4a1,1 0 1,0 2,0a1,1 0 1,0 -2,0 M3,7a1,1 0 1,0 2,0a1,1 0 1,0 -2,0";
+    -fx-background-color: black;
+    -fx-padding: 4 2 4 2;
+}
+
+/****************************************************************/
+/*                                                              */
+/*    Other                                                     */
+/*                                                              */
+/****************************************************************/
+
+.error  {
+    -fx-background-color: red,white;
+    -fx-background-insets: 0,2
+}
+
+.dialog-pane .content {
+    -fx-padding: 0;
+}
+
+/****************************************************************/
+/*                                                              */
+/*    HotKey style                                              */
+/*                                                              */
+/****************************************************************/
+
+.key-label  {
+    -fx-background-color: WHEAT;
+    -fx-background-radius: 4;
+    -fx-padding: 0 4 0 4;
+    -fx-text-fill: BLACK;
+}
+
+.typing-label   {
+    -fx-background-color: GREEN;
+    -fx-background-radius: 4;
+    -fx-padding: 0 4 0 4;
+    -fx-text-fill: WHITE;
+}
+
+.invalid-key-label  {
+}

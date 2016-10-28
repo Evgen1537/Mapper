@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox spacing="4.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.settings.GeneralPane">
+   <children>
+      <Label text="General">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox>
+         <children>
+            <CheckBox fx:id="overwriteTiles" mnemonicParsing="false" text="Overwrite tiles" />
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/information-small-white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Overwrite the same tiles in the merge and refresh operations" />
+               </tooltip>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" spacing="4.0">
+         <children>
+            <Label text="Partly visibility" />
+            <Slider fx:id="partlyVisibilityAlphaSlider" prefWidth="100.0" />
+            <TextField fx:id="partlyVisibilityAlpha" prefWidth="40.0" />
+         </children>
+      </HBox>
+      <CheckBox fx:id="showMarkerQuality" mnemonicParsing="false" text="Show marker quality" />
+   </children>
+   <padding>
+      <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+   </padding>
+</VBox>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<HBox xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.main.toolbar.MarkerEditingTab">
+   <children>
+      <BorderPane>
+         <bottom>
+            <Label text="Properties" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <HBox spacing="4.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuButton fx:id="markerIcon" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" styleClass="big-button" text="Icon">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/marker/none.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MenuButton>
+                  <GridPane hgap="4.0" vgap="2.0" HBox.hgrow="NEVER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" />
+                        <ColumnConstraints hgrow="NEVER" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/essence.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="essence" prefWidth="50.0" GridPane.columnIndex="1" />
+                        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../image/substance.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="substance" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@../image/vitality.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="vitality" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+         </center>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+      <BorderPane>
+         <bottom>
+            <Label text="Layers" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <GridPane alignment="CENTER_LEFT" hgap="4.0" vgap="2.0" HBox.hgrow="NEVER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" />
+                  <ColumnConstraints hgrow="NEVER" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
+               </rowConstraints>
+               <children>
+                  <ComboBox fx:id="layer" prefWidth="150.0" />
+                  <Button fx:id="layerClear" mnemonicParsing="false" onAction="#handleLayerClear" prefHeight="24.0" prefWidth="24.0" styleClass="regular-button" GridPane.columnIndex="1">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/ui-text-field-clear-button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <ComboBox fx:id="exit" prefWidth="150.0" GridPane.rowIndex="1" />
+                  <Button fx:id="exitClear" mnemonicParsing="false" onAction="#handlerExitClear" prefHeight="24.0" prefWidth="24.0" styleClass="regular-button" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/ui-text-field-clear-button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </GridPane>
+         </center>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+      <BorderPane>
+         <bottom>
+            <Label text="Comment" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+         <center>
+            <TextArea fx:id="comment" prefColumnCount="7" prefRowCount="3" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+      <BorderPane>
+         <bottom>
+            <Label text="Points" textFill="#938c8c" BorderPane.alignment="CENTER" />
+         </bottom>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+         <center>
+            <VBox spacing="2.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="addPoint" mnemonicParsing="false" styleClass="regular-button" text="Add">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/pin--plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="removePoint" mnemonicParsing="false" styleClass="regular-button" text="Remove">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/pin--minus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+      <BorderPane>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+         <center>
+            <HBox spacing="2.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="apply" contentDisplay="TOP" mnemonicParsing="false" prefWidth="54.0" styleClass="big-button" text="Apply">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/tick_32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="dismiss" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="54.0" styleClass="big-button" text="Dismiss">
+                     <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/cross_32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+      <Separator orientation="VERTICAL" />
+   </children>
+</HBox>

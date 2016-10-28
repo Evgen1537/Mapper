@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<TabPane fx:id="tabPane" rotateGraphic="true" side="LEFT" stylesheets="@../css/mapper.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="150.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.settings.SettingsDialog">
+    <tabs>
+      <Tab fx:id="generalTab" closable="false">
+         <graphic>
+            <Group>
+               <children>
+                  <Label prefWidth="80.0" rotate="90.0" text="General">
+                     <padding>
+                        <Insets left="4.0" right="4.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </Group>
+         </graphic>
+      </Tab>
+        <Tab fx:id="markerIconsTab" closable="false">
+            <graphic>
+                <Group>
+                    <children>
+                        <Label prefWidth="80.0" rotate="90.0" text="Marker Icons">
+                            <padding>
+                                <Insets left="4.0" right="4.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </Group>
+            </graphic>
+        </Tab>
+        <Tab fx:id="hotKeysTab" closable="false">
+            <graphic>
+                <Group>
+                    <children>
+                        <Label prefWidth="80.0" rotate="90.0" text="Hotkeys">
+                            <padding>
+                                <Insets left="4.0" right="4.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </Group>
+            </graphic>
+        </Tab>
+      <Tab fx:id="trackerTab" closable="false">
+         <graphic>
+            <Group>
+               <children>
+                  <Label prefWidth="80.0" rotate="90.0" text="Tracker">
+                     <padding>
+                        <Insets left="4.0" right="4.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </Group>
+         </graphic>
+      </Tab>
+    </tabs>
+</TabPane>

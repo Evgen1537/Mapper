@@ -1,0 +1,102 @@
+/* REGULAR BUTTON */
+
+.regular-button  {
+    -fx-padding: 3;
+    -fx-pref-height: 24;
+}
+
+.regular-menu {
+    -fx-padding: 0;
+    -fx-pref-height: 24;
+    -fx-min-height: 24;
+}
+
+.regular-menu > .label   {
+    -fx-padding: 3;
+}
+
+/* BIG BUTTON */
+
+.big-button  {
+    -fx-padding: 3;
+    /*-fx-pref-width: 56;*/
+    -fx-pref-height: 76;
+}
+
+.big-button:openvertically > .arrow-button {
+    -fx-padding: 0;
+}
+
+.big-button:openvertically > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+/* BIG SPLIT BUTTON */
+
+.big-split-button-bpart {
+    -fx-background-radius: 3px 3px 0px 0px, 3px 3px 0px 0px, 2px 2px 0px 0px, 1px 1px 0px 0px;
+    -fx-pref-width: 54;
+    -fx-pref-height: 50;
+}
+
+.big-split-button-spart {
+
+    -fx-background-radius: 0px 0px 3px 3px, 0px 0px 3px 3px, 0px 0px 2px 2px, 0px 0px 1px 1px;
+    -fx-pref-width: 54;
+    -fx-pref-height: 26;
+}
+
+/* TAB HIGHLIGHT */
+
+.ltab {
+	-fx-background-color: red;
+}
+
+.ltab > .tab-container > .tab-label {
+	-fx-text-fill: white;
+}
+
+/* BACKSTAGE MENU */
+
+.backstage-popup > {
+    -fx-background-color:
+        linear-gradient(to bottom,
+            derive(-fx-color,-17%),
+            derive(-fx-color,-30%)
+        ),
+        -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    -fx-padding: 0em 0.083333em 0.333333em 0.083333em; /* 4 1 8 1 */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+.file-tab   {
+    -fx-background-color: #e74c3c;
+}
+
+.file-tab-label   {
+    -fx-text-fill: white;
+    -fx-padding: 0 8 0 8;
+}
+
+.tab-label {
+    -fx-padding: 0 8 0 8;
+}
+
+.item   {
+    -fx-pref-width: 200;
+    -fx-pref-height: 44;
+    -fx-background-color: white;
+    -fx-padding: 0.333333em 0.41777em 0.333333em 0.41777em;  /* 4 5 4 5 */
+    -fx-background-radius: 0;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.item:hover   {
+     -fx-background: -fx-selection-bar;
+     -fx-background-color: -fx-background;
+     -fx-text-fill:  -fx-text-background-color;
+}
+
+
+

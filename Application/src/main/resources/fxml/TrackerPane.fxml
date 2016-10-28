@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox spacing="4.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.settings.tracker.TrackerPane">
+   <children>
+      <Label text="Tracker">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" spacing="4.0">
+         <children>
+            <Label text="Map folder" />
+            <TextField fx:id="mapFolderPath" editable="false" />
+            <Button mnemonicParsing="false" onAction="#handleBrowseMapFolder" text="Browse..." />
+         </children>
+      </HBox>
+      <Hyperlink onAction="#handleViewTrackedFolder" text="View tracked folder" />
+      <HBox>
+         <children>
+            <CheckBox fx:id="refreshLayers" mnemonicParsing="false" text="Refresh layers" />
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/information-small-white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Performs refresh of the existed layers" />
+               </tooltip>
+            </Label>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <CheckBox fx:id="addNewLayers" mnemonicParsing="false" text="Add new layers" />
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/information-small-white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Add layers if it does not exist and not removed previously" />
+               </tooltip>
+            </Label>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <CheckBox fx:id="removeSessionFoldersFromDisk" mnemonicParsing="false" text="Delete session folder removed by user" />
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/information-small-white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Delete session folder if appropriate layer removed by user" />
+               </tooltip>
+            </Label>
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/exclamation-small.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Session folder will be deleted permanently, be careful" />
+               </tooltip>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" spacing="4.0">
+         <children>
+            <CheckBox fx:id="removeSmallSessionFolders" mnemonicParsing="false" text="Delete session folder and layer if size less than" />
+            <TextField fx:id="smallSessionFolderSize" prefWidth="50.0" />
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/exclamation-small.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Session folder will be deleted permanently, be careful" />
+               </tooltip>
+            </Label>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <CheckBox fx:id="trackPlayerPosition" mnemonicParsing="false" text="Track player position (only Amber)" />
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/information-small-white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Run Amber client with key &quot;-p [position-file]&quot;.&#10;Amber will store player position in the specified file" wrapText="true" />
+               </tooltip>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" spacing="4.0">
+         <children>
+            <Label text="Position file" />
+            <TextField fx:id="positionFilePath" editable="false" />
+            <Button fx:id="browsePositionFile" mnemonicParsing="false" onAction="#handleBrowsePositionFile" text="Browse..." />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+   </padding>
+</VBox>

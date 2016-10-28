@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefHeight="400.0" prefWidth="500.0" spacing="4.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.Importer">
+   <children>
+      <HBox spacing="4.0">
+         <children>
+            <TextField fx:id="appPath" editable="false" prefWidth="400.0" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#handleBrowse" text="Browse..." />
+         </children>
+      </HBox>
+      <CheckBox fx:id="skipLayersImporting" mnemonicParsing="false" text="Skip layers importing" />
+      <CheckBox fx:id="skipMarkersImporting" mnemonicParsing="false" text="Skip markers importing" />
+      <TextArea fx:id="executionLog" VBox.vgrow="ALWAYS" />
+      <ProgressBar fx:id="progress" prefWidth="500.0" progress="0.0" />
+   </children>
+</VBox>

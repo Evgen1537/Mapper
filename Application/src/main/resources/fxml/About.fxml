@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.*?>
+<VBox xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.About">
+   <children>
+      <Pane prefHeight="165.0" prefWidth="600.0" style="-fx-background-color: CFD8DC;">
+         <children>
+            <ImageView fitHeight="256.0" fitWidth="256.0" layoutX="393.0" layoutY="-101.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/tracking-route-icon.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Text layoutX="10.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mapper">
+               <font>
+                  <Font name="Verdana" size="64.0" />
+               </font>
+            </Text>
+            <Line endX="400.0" layoutY="95.0" stroke="#e54a3c" strokeLineCap="BUTT" strokeType="OUTSIDE" strokeWidth="4.0" />
+            <Text layoutX="10.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nano">
+               <font>
+                  <Font name="Verdana" size="48.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <HBox spacing="4.0">
+         <children>
+            <Label text="Build">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="version" text="&lt;version&gt;">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="8.0" left="64.0" right="8.0" top="24.0" />
+         </VBox.margin>
+      </HBox>
+      <Label text="Evgen Ltd">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="16.0" left="64.0" right="8.0" top="8.0" />
+         </VBox.margin>
+      </Label>
+      <Label text="Powered by:">
+         <VBox.margin>
+            <Insets bottom="8.0" left="32.0" right="8.0" top="8.0" />
+         </VBox.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <GridPane hgap="4.0" vgap="4.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" />
+          <ColumnConstraints hgrow="NEVER" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints vgrow="NEVER" />
+          <RowConstraints vgrow="NEVER" />
+          <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
+        </rowConstraints>
+         <children>
+            <Label text="Spring">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/spring-framework.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="Hibernate" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/hibernate.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="SQLite" GridPane.rowIndex="2">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/sqlite.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="JavaFX" GridPane.rowIndex="3" />
+            <Label text="Fugue Icons" GridPane.rowIndex="4" />
+            <Hyperlink fx:id="springLink" text="projects.spring.io/spring-framework" GridPane.columnIndex="1" />
+            <Hyperlink fx:id="hibernateLink" text="hibernate.org/orm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Hyperlink fx:id="sqliteLink" text="sqlite.org" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Hyperlink fx:id="javafxLink" text="docs.oracle.com/javafx" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Hyperlink fx:id="fugueLink" text="p.yusukekamiyamane.com" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="8.0" left="32.0" right="8.0" top="8.0" />
+         </VBox.margin>
+      </GridPane>
+   </children>
+</VBox>

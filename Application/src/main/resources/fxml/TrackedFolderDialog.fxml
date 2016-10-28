@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.settings.tracker.TrackedFolderDialog">
+   <top>
+      <HBox spacing="4.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleAddFolder">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Add folder to tracking" />
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleAddAllFolder">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/folder--plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Add all folders in the directory for tracking" />
+               </tooltip>
+            </Button>
+            <Button fx:id="removeFolder" mnemonicParsing="false" onAction="#handleRemoveFolder">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/bin-metal-full.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Remove folder from tracking" />
+               </tooltip>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleRefreshFolderList">
+               <graphic>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/arrow-circle-double.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Refresh folder list" />
+               </tooltip>
+            </Button>
+            <Separator orientation="VERTICAL" />
+            <Button fx:id="markAsActual" mnemonicParsing="false" onAction="#handleMarkAsActual" text="Mark as actual" />
+            <Button fx:id="markAsDeleted" mnemonicParsing="false" onAction="#handleMarkAsDeleted" text="Mark as deleted" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="4.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <ListView fx:id="folderEntryListView" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

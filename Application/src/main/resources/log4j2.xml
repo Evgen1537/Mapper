@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="com.evgenltd.mapper.core.util">
+    <Appenders>
+        <RollingFile name="rollingfile" fileName="application.log" filePattern="application-%i.log">
+            <PatternLayout>
+                <Pattern>%d %-5p [%c{1}] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <RollbarAppender name="rollbar">
+            <PatternLayout>
+                <Pattern>%d %-5p [%c{1}] %t; %m%n</Pattern>
+            </PatternLayout>
+        </RollbarAppender>
+    </Appenders>
+    <Loggers>
+        <Root level="ERROR">
+            <AppenderRef ref="rollingfile"/>
+            <AppenderRef ref="rollbar"/>
+        </Root>
+    </Loggers>
+</Configuration>

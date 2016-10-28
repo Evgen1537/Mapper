@@ -1,0 +1,1 @@
+from Marker where id in :markerIdList

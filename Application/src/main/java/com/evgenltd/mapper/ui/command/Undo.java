@@ -1,0 +1,65 @@
+package com.evgenltd.mapper.ui.command;
+
+import com.evgenltd.mapper.core.Context;
+import com.evgenltd.mapper.ui.UIContext;
+import com.evgenltd.mapper.ui.component.command.Command;
+import com.evgenltd.mapper.ui.component.command.CommandTemplate;
+import com.evgenltd.mapper.ui.util.UIConstants;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+
+/**
+ * Project: mapper
+ * Author:  Evgeniy
+ * Created: 17-07-2016 21:46
+ */
+@CommandTemplate(
+		id = UIConstants.UNDO,
+		text = "Undo",
+		longText = "Undo last changes",
+		graphic = "/image/arrow-curve-180-left.png",
+		accelerator = "Ctrl+Z",
+		path = "/Other",
+		position = 0
+)
+public class Undo extends Command {
+
+	@Override
+	protected void execute(ActionEvent event) {
+
+		if(!Context
+				.get()
+				.getEnversBean()
+				.isUndoAvailable())	{
+			return;
+		}
+
+		final Task<Void> task = makeTask();
+		setupDefaultListeners(task);
+
+		UIContext
+				.get()
+				.submit(getId(), task);
+
+	}
+
+	private Task<Void> makeTask()	{
+
+		return new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+
+				updateTitle("Undo changes...");
+
+				Context
+						.get()
+						.getEnversBean()
+						.undo();
+
+				return null;
+			}
+		};
+
+	}
+
+}
