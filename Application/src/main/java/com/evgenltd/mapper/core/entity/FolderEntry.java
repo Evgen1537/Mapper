@@ -15,7 +15,7 @@ import java.io.File;
 public class FolderEntry {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name = "session_path")

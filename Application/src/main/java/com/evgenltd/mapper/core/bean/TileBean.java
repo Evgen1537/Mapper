@@ -12,11 +12,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * Created: 19-06-2016 12:02
  */
 @Component
-@Transactional
 @ParametersAreNonnullByDefault
 public class TileBean extends AbstractBean {
 
-
+	@Transactional
 	public void update(final Tile tile)	{
 
 		if(tile.getId() == null)	{

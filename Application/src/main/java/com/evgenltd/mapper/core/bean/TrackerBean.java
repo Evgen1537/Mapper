@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
  * Created: 20-08-2016 20:24
  */
 @Component
-@Transactional
 @ParametersAreNonnullByDefault
 public class TrackerBean extends AbstractBean {
 
@@ -84,6 +83,7 @@ public class TrackerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	private void doTrackerWork()	{
 
 		trackedFolderInvalidated = false;

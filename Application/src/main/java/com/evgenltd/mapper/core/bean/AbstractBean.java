@@ -36,7 +36,7 @@ public abstract class AbstractBean {
 
 	protected String getQuery(final String path)	{
 		try {
-			getLogger().info("Load query "+path);
+			getLogger().debug(String.format("Load query [%s]", path));
 			final InputStream stream = getClass().getResourceAsStream(path);
 			final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 			final StringBuilder sb = new StringBuilder();

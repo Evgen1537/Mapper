@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
  * Created: 19-06-2016 11:19
  */
 @Component
-@Transactional
 @ParametersAreNonnullByDefault
 public class LayerBean extends AbstractBean {
 
@@ -41,6 +40,7 @@ public class LayerBean extends AbstractBean {
 
 	private Long orderNumberIdentity = null;
 
+	@Transactional(readOnly = true)
 	public Long getNewOrderNumber()	{
 		if(orderNumberIdentity == null) {
 			orderNumberIdentity = (Long)getEntityManager()
@@ -50,6 +50,7 @@ public class LayerBean extends AbstractBean {
 		return ++orderNumberIdentity;
 	}
 
+	@Transactional
 	public void generateLevels(
 			final Long layerId,
 			final Consumer<String> messageUpdater,
@@ -61,6 +62,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void generateLevels(
 			final Long layerId,
 			final List<? extends Tile> sourceTileList,
@@ -80,6 +82,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void refreshLayer(
 			final Long layerId,
 			final Consumer<String> messageUpdater,
@@ -98,6 +101,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void addSessionLayerFromFileSystem(
 			final File sessionFolder,
 			final Consumer<String> messageUpdater,
@@ -118,6 +122,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void addManyLayersFromSessionFolder(
 			final File mapFolder,
 			final Consumer<String> messageUpdater,
@@ -136,6 +141,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void bringLayersForward(final List<Long> layerIdList, final int stepCount, final Collection<LayerType> layerTypes)	{
 
 		if(layerIdList.isEmpty())	{
@@ -167,6 +173,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void sendLayersBackward(final List<Long> layerIdList, final int stepCount, final Collection<LayerType> layerTypes)	{
 
 		if(layerIdList.isEmpty())	{
@@ -198,6 +205,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void setLayerVisibility(
 			final List<Long> layerIdList,
 			final Visibility visibility
@@ -214,6 +222,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void removeLayers(final List<Long> layerIdList, final Optional<Boolean> removeLinkedMarkers)	{
 
 		removeLinkedMarkers.ifPresent(remove -> {
@@ -238,6 +247,7 @@ public class LayerBean extends AbstractBean {
 
 	}
 
+	@Transactional(readOnly = true)
 	public void exportLayersToFileSystem(
 			final File destination,
 			final Long layerId,

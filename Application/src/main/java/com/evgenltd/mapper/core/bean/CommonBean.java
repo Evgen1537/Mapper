@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
  * Created: 07-07-2016 11:45
  */
 @Component
-@Transactional
 @ParametersAreNonnullByDefault
 public class CommonBean extends AbstractBean {
 
@@ -40,6 +39,7 @@ public class CommonBean extends AbstractBean {
 	@Autowired
 	private Loader loader;
 
+	@Transactional
 	public void persistMovedState(
 			final List<Long> layerIdList,
 			final List<Long> markerIdList,
@@ -95,6 +95,7 @@ public class CommonBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void mergeTogether(
 			final List<Long> sourceLayerIdList,
 			final Consumer<String> messageUpdater,
@@ -123,6 +124,7 @@ public class CommonBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void merge(
 			final Long targetLayerId,
 			final List<Long> sourceLayerIdList,

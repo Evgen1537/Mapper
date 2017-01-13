@@ -19,16 +19,17 @@ import java.util.stream.Collectors;
  * Created: 25-07-2016 22:20
  */
 @Component
-@Transactional
 @ParametersAreNonnullByDefault
 public class LayerMatcherBean extends AbstractBean {
 
+	@Transactional
 	public Optional<Layer> findMatches(final Layer targetLayer)	{
 
 		return findMatches(Collections.singletonList(targetLayer));
 
 	}
 
+	@Transactional
 	public Optional<Layer> findMatchesById(final List<Long> targetLayerLongList)	{
 
 		final List<Layer> targetLayerList = getEntityManager()
@@ -39,6 +40,7 @@ public class LayerMatcherBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public Optional<Layer> findMatches(final List<Layer> targetLayerList)	{
 
 		final List<Long> targetLayerIdList = targetLayerList

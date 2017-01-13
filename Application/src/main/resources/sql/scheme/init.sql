@@ -1,9 +1,3 @@
-CREATE TABLE hibernate_sequence (
-	next_val	INTEGER
-);
-
-insert into hibernate_sequence (next_val) values (10);
-
 CREATE TABLE images (
 	id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	content	BLOB

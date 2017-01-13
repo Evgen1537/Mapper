@@ -4,8 +4,9 @@ import com.evgenltd.mapper.core.bean.*;
 import com.evgenltd.mapper.core.bean.envers.EnversBean;
 import com.evgenltd.mapper.core.util.RollbarWrapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -18,7 +19,12 @@ public class Context {
 
 	private ApplicationContext context;
 
-	private final Executor coreExecutor = Executors.newCachedThreadPool();
+	private Long threadCounter = 0L;
+	private final ExecutorService coreExecutor = Executors.newCachedThreadPool(r -> {
+		final Thread thread = new Thread(r);
+		thread.setName(String.format("CoreThreadPool-%s", ++threadCounter));
+		return thread;
+	});
 
 	private SettingsBean settingsBean;
 	private CommonDao commonDao;
@@ -53,10 +59,13 @@ public class Context {
 
 	// executors
 
-	public Executor getCoreExecutor() {
+	public ExecutorService getCoreExecutor() {
 		return coreExecutor;
 	}
 
+	public ThreadPoolTaskScheduler getSpringScheduler() {
+		return getSpringContext().getBean(ThreadPoolTaskScheduler.class);
+	}
 
 	// beans
 

@@ -6,3 +6,6 @@
 *.war
 *.ear
 *.log
+data.db
+backups
+config.xml

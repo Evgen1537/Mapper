@@ -15,12 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
  * Created: 13-06-2016 00:02
  */
 @Component
-@Transactional
 public class DatabaseBeanMaintenance extends AbstractBean {
 
 	@Autowired
 	private EnversBean enversBean;
 
+	@Transactional
 	public void init()	{
 		final Long version = getVersion();
 		getLogger().info(String.format("Current database scheme version is [%s]",version));
@@ -31,8 +31,8 @@ public class DatabaseBeanMaintenance extends AbstractBean {
 			switch(version.intValue())	{
 				case 11:
 					executeUpdate("/sql/scheme/version12.sql",12L);
-//				case 12:
-//					executeUpdate("/sql/scheme/version13.sql",13L);
+				case 12:
+					executeUpdate("/sql/scheme/version13.sql",13L);
 			}
 		}
 	}
@@ -78,6 +78,7 @@ public class DatabaseBeanMaintenance extends AbstractBean {
 
 	// cleanup
 
+	@Transactional
 	public void processMaintenance()	{
 
 		getEntityManager()

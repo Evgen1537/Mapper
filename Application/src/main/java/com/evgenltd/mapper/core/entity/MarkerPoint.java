@@ -19,7 +19,7 @@ public class MarkerPoint implements Ordered {
 	public static final Comparator<MarkerPoint> MARKER_POINT_COMPARATOR = (o1, o2) -> o1.getOrderNumber().compareTo(o2.getOrderNumber());
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private Double x;

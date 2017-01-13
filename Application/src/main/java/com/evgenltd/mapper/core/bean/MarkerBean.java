@@ -19,13 +19,13 @@ import java.util.Objects;
  * Created: 06-07-2016 23:29
  */
 @Component
-@Transactional
 @ParametersAreNonnullByDefault
 public class MarkerBean extends AbstractBean {
 
 	@Autowired
 	private Loader loader;
 
+	@Transactional
 	public void removeMarkersById(final List<Long> markerIdList)	{
 
 		markerIdList.forEach(markerId -> getEntityManager().remove(
@@ -34,12 +34,14 @@ public class MarkerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void removeMarkers(final List<Marker> markerList)	{
 
 		markerList.forEach(marker -> getEntityManager().remove(marker));
 
 	}
 
+	@Transactional
 	public void removeLinkedMarkers(final List<Long> layerIdList)	{
 
 		final List<Marker> markerList = loader.loadLinkedMarkerList(layerIdList);
@@ -47,12 +49,14 @@ public class MarkerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void unlinkMarkers(final List<Long> layerIdList)	{
 
 		relinkMarkers(layerIdList, null);
 
 	}
 
+	@Transactional
 	public void relinkMarkers(final List<Long> layerIdList, @Nullable final Long targetLayerId) {
 
 		final Layer targetLayer = targetLayerId == null
@@ -78,6 +82,7 @@ public class MarkerBean extends AbstractBean {
 
 	}
 
+	@Transactional
 	public void removeMarkerIcon(@NotNull final MarkerIcon markerIcon)	{
 
 		final MarkerIcon defaultMarkerIcon = loader.loadDefaultMarkerIcon();

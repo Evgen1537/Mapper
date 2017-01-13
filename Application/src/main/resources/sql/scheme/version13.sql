@@ -1,0 +1,1 @@
+drop table hibernate_sequence;

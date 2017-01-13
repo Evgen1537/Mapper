@@ -20,7 +20,7 @@ public class Image {
 	private static final Logger log = LogManager.getLogger(Image.class);
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private byte[] content;

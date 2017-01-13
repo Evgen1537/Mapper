@@ -68,6 +68,8 @@ public class Application extends javafx.application.Application {
 
 	@Override
 	public void stop() throws Exception {
+		Context.get().getCoreExecutor().shutdownNow();
+		Context.get().getSpringScheduler().shutdown();
 		UIContext
 				.get()
 				.getMapViewerWrapper()

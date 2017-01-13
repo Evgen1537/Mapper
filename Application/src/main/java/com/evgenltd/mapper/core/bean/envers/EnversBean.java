@@ -1,21 +1,21 @@
-	package com.evgenltd.mapper.core.bean.envers;
+package com.evgenltd.mapper.core.bean.envers;
 
-	import com.evgenltd.mapper.core.bean.AbstractBean;
-	import com.evgenltd.mapper.core.entity.Layer;
-	import com.evgenltd.mapper.core.entity.Marker;
-	import com.evgenltd.mapper.core.entity.MarkerPoint;
-	import com.evgenltd.mapper.core.entity.Tile;
-	import com.evgenltd.mapper.core.entity.envers.*;
-	import com.evgenltd.mapper.core.util.Queries;
-	import org.hibernate.envers.RevisionType;
-	import org.jetbrains.annotations.NotNull;
-	import org.springframework.stereotype.Component;
-	import org.springframework.transaction.annotation.Transactional;
-	import org.springframework.transaction.support.TransactionSynchronizationManager;
+import com.evgenltd.mapper.core.bean.AbstractBean;
+import com.evgenltd.mapper.core.entity.Layer;
+import com.evgenltd.mapper.core.entity.Marker;
+import com.evgenltd.mapper.core.entity.MarkerPoint;
+import com.evgenltd.mapper.core.entity.Tile;
+import com.evgenltd.mapper.core.entity.envers.*;
+import com.evgenltd.mapper.core.util.Queries;
+import org.hibernate.envers.RevisionType;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-	import java.util.*;
+import java.util.*;
+import java.util.stream.Stream;
 
-/**
+	/**
  * Project: mapper
  * Author:  Evgeniy
  * Created: 12-07-2016 22:24
@@ -81,16 +81,6 @@ public class EnversBean extends AbstractBean {
 
 	public void beforeTransactionCommit()	{
 
-		final boolean isReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
-		if(isReadOnly)	{
-			return;
-		}
-
-		final String transactionName = TransactionSynchronizationManager.getCurrentTransactionName();
-		if(Objects.equals(transactionName, getClass().getName() + ".undo"))	{
-			return;
-		}
-
 		if(getEntityManager()
 				.createNativeQuery(getQuery(Queries.ENVERS_CHECK_FOR_CLEANUP_SQL))
 				.getResultList()
@@ -98,7 +88,6 @@ public class EnversBean extends AbstractBean {
 			return;
 		}
 
-		System.err.println(transactionName+" beforeTransactionCommit()");
 		cleanupCancelledChanges();
 		// Note: if transaction fails then cleanup will be cancelled and history will be in safety
 	}
@@ -159,14 +148,13 @@ public class EnversBean extends AbstractBean {
 		getFirstCancelledChangeRevisionNumber()
 				.ifPresent(firstCancellationRevisionNumber -> {
 
-					Arrays
-							.asList(
+					Stream
+							.of(
 									loadChangeList(LayerAud.class, firstCancellationRevisionNumber),
 									loadChangeList(TileAud.class, firstCancellationRevisionNumber),
 									loadChangeList(MarkerAud.class, firstCancellationRevisionNumber),
 									loadChangeList(MarkerPointAud.class, firstCancellationRevisionNumber)
 							)
-							.stream()
 							.flatMap(Collection::stream)
 							.map(aud -> {
 								getEntityManager().detach(aud);
