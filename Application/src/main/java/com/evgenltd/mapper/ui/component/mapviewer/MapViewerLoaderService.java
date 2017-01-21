@@ -137,7 +137,7 @@ class MapViewerLoaderService extends Service<DataLoadingResult> {
 
 	@SuppressWarnings("unchecked")
 	private void foregroundDataApplying(final @NotNull DataLoadingResult dataLoadingResult)	{
-		mapViewerWrapper.mergeNodes((List)dataLoadingResult.getNodeList());
+		mapViewerWrapper.mergeNodes(dataLoadingResult.getNodeList());
 	}
 
 }

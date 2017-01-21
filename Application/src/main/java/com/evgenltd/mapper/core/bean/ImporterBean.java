@@ -2,6 +2,7 @@ package com.evgenltd.mapper.core.bean;
 
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.MarkerIcon;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.importer.LayerConverter;
 import com.evgenltd.mapper.core.importer.LayerOld;
@@ -53,10 +54,13 @@ public class ImporterBean extends AbstractBean{
 	private static final String MARKERS_DESCRIPTOR = File.separator + "markers.xml";
 
 	@Autowired
+	@SuppressWarnings("unused")
 	private XStreamMarshaller xStreamMarshaller;
 	@Autowired
+	@SuppressWarnings("unused")
 	private Loader loader;
 	@Autowired
+	@SuppressWarnings("unused")
 	private LayerBean layerBean;
 
 	private Consumer<String> messageConsumer = message -> {};
@@ -64,6 +68,7 @@ public class ImporterBean extends AbstractBean{
 	private MarkerConverter markerConverter;
 
 	@PostConstruct
+	@SuppressWarnings("unused")
 	public void postConstruct()	{
 		layerConverter = (LayerConverter)xStreamMarshaller
 				.getXStream()
@@ -141,7 +146,7 @@ public class ImporterBean extends AbstractBean{
 				logMessage("Importing session layer...");
 				logMessage("########################################");
 				progressUpdater.accept(++counter,(long)sessionLayerDescriptors.size());
-				final Layer layer = new Layer();
+				final Layer layer = EntityFactory.createLayer();
 				layer.setOrderNumber(layerBean.getNewOrderNumber());
 				doImportLayer(sessionLayerDescriptor, layer);
 			}

@@ -4,7 +4,7 @@ import com.evgenltd.mapper.ui.UIContext;
 import com.evgenltd.mapper.ui.component.command.Command;
 import com.evgenltd.mapper.ui.component.command.CommandTemplate;
 import com.evgenltd.mapper.ui.component.command.scope.MarkerEdit;
-import com.evgenltd.mapper.ui.component.markerediting.MarkerBuilder;
+import com.evgenltd.mapper.ui.component.markerediting.MarkerNodeFactory;
 import com.evgenltd.mapper.ui.node.MarkerNode;
 import com.evgenltd.mapper.ui.util.UIConstants;
 import javafx.event.ActionEvent;
@@ -46,7 +46,7 @@ public class MarkerAddTrack extends Command {
 
 	private boolean addMarkerCallback(final @NotNull Point2D point)	{
 
-		final MarkerNode marker = MarkerBuilder.buildTrackMarker(point.x(), point.y());
+		final MarkerNode marker = MarkerNodeFactory.createTrackMarker(point.x(), point.y());
 
 		UIContext
 				.get()

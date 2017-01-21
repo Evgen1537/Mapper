@@ -70,7 +70,7 @@ public class LayerMerge {
 
 		}
 
-		targetLayerFirstLevelAffectedTiles.forEach(tilePersistent::accept);
+		targetLayerFirstLevelAffectedTiles.forEach(tilePersistent);
 
         LayerLevelGeneration.execute(
                 targetLayer,

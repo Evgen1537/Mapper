@@ -1,6 +1,6 @@
 package com.evgenltd.mapper.core.entity.envers;
 
-import com.evgenltd.mapper.core.entity.Marker;
+import com.evgenltd.mapper.core.entity.impl.MarkerImpl;
 import com.evgenltd.mapper.core.enums.MarkerType;
 import org.hibernate.envers.RevisionType;
 
@@ -66,7 +66,7 @@ public class MarkerAud implements Aud,Serializable {
 
 	@Override
 	public Class<?> getTargetClass() {
-		return Marker.class;
+		return MarkerImpl.class;
 	}
 
 	@Override

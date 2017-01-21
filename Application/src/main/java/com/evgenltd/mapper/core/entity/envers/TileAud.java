@@ -1,6 +1,6 @@
 package com.evgenltd.mapper.core.entity.envers;
 
-import com.evgenltd.mapper.core.entity.TileImpl;
+import com.evgenltd.mapper.core.entity.impl.TileImpl;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import org.hibernate.envers.RevisionType;
 

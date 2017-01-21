@@ -1,9 +1,9 @@
 package com.evgenltd.mapper.core.rule;
 
 import com.evgenltd.mapper.core.entity.Layer;
-import com.evgenltd.mapper.core.entity.LiteTile;
 import com.evgenltd.mapper.core.entity.Tile;
-import com.evgenltd.mapper.core.entity.TileImpl;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
+import com.evgenltd.mapper.core.entity.impl.LiteTile;
 import com.evgenltd.mapper.core.util.Utils;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import javafx.geometry.Point2D;
@@ -187,7 +187,7 @@ public class LayerLevelGeneration {
 						currentLevel.nextLevel(),
 						layer
 				))
-				.orElse(new TileImpl());
+				.orElse(EntityFactory.createTile());
 
 		stitchedTile.setX(nextLevelPointX);
 		stitchedTile.setY(nextLevelPointY);

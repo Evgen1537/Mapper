@@ -5,6 +5,7 @@ import com.evgenltd.mapper.core.bean.Loader;
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Marker;
 import com.evgenltd.mapper.core.entity.MarkerIcon;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.ui.UIContext;
 import com.evgenltd.mapper.ui.cellfactory.OptionalLayerListCell;
 import com.evgenltd.mapper.ui.component.command.CommandManager;
@@ -36,7 +37,6 @@ public class MarkerEditingTab extends AbstractScreen {
 	@FXML private TextField vitality;
 
 	@FXML private ComboBox<Optional<Layer>> layer;
-	@FXML private Button layerClear;
 	@FXML private ComboBox<Optional<Layer>> exit;
 	@FXML private Button exitClear;
 
@@ -108,7 +108,7 @@ public class MarkerEditingTab extends AbstractScreen {
 	}
 
 	private void clearState()	{
-		marker = new Marker();
+		marker = EntityFactory.createMarker();
 
 		markerIcon.setDisable(true);
 		essence.setDisable(true);

@@ -2,7 +2,7 @@ package com.evgenltd.mapper.core.importer;
 
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
-import com.evgenltd.mapper.core.entity.TileImpl;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.util.Utils;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import com.thoughtworks.xstream.converters.Converter;
@@ -105,7 +105,7 @@ public class LayerConverter implements Converter {
                 );
                 final Image image = new Image("file:" + resolveTilePath(tileFile));
                 final String hash = Utils.calculateHash(image);
-				final Tile tile = new TileImpl();
+				final Tile tile = EntityFactory.createTile();
 				tile.setX(point.getX());
 				tile.setY(point.getY());
 				tile.setZ(ZLevel.Z1);
@@ -165,7 +165,7 @@ public class LayerConverter implements Converter {
 
 				final Image image = new Image("file:" + resolveTilePath(tileFile));
 				final String hash = Utils.calculateHash(image);
-				final Tile tile = new TileImpl();
+				final Tile tile = EntityFactory.createTile();
 				tile.setX(point.getX());
 				tile.setY(point.getY());
 				tile.setZ(ZLevel.Z1);
@@ -236,7 +236,7 @@ public class LayerConverter implements Converter {
 
 				final Image image = new Image("file:" + resolveTilePath(tileFile));
 				final String hash = Utils.calculateHash(image);
-				final Tile tile = new TileImpl();
+				final Tile tile = EntityFactory.createTile();
 				tile.setX(point.getX());
 				tile.setY(point.getY());
 				tile.setZ(ZLevel.Z1);

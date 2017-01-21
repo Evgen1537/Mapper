@@ -3,6 +3,7 @@ package com.evgenltd.mapper.core.importer;
 import com.evgenltd.mapper.core.entity.Marker;
 import com.evgenltd.mapper.core.entity.MarkerIcon;
 import com.evgenltd.mapper.core.entity.MarkerPoint;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.enums.MarkerType;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -95,7 +96,7 @@ public class MarkerConverter implements Converter {
 
 				final String absolutePath = imagePath.getAbsolutePath();
 				final Image image = new Image("file:" + absolutePath);
-				final MarkerIcon markerIcon = new MarkerIcon(markerIconName, image);
+				final MarkerIcon markerIcon = EntityFactory.createMarkerIcon(markerIconName, image);
 				markerOld.addMarkerIcon(markerIcon);
 				readiedIconList.add(markerIcon);
 
@@ -116,7 +117,7 @@ public class MarkerConverter implements Converter {
 			reader.moveDown();
 
 			reader.moveDown();  // point
-			final MarkerPoint markerPoint = new MarkerPoint();
+			final MarkerPoint markerPoint = EntityFactory.createMarkerPoint();
 			markerPoint.setOrderNumber(1L);
 			markerPoint.setX(Double.parseDouble(reader.getAttribute("x")));
 			markerPoint.setY(Double.parseDouble(reader.getAttribute("y")));
@@ -138,7 +139,7 @@ public class MarkerConverter implements Converter {
 
 			reader.moveUp();
 
-			final Marker area = new Marker();
+			final Marker area = EntityFactory.createMarker();
 			area.setType(MarkerType.AREA);
 			area.setMarkerIcon(getMarkerIconByName(type));
 			area.setMarkerPointList(Collections.singleton(markerPoint));
@@ -164,7 +165,7 @@ public class MarkerConverter implements Converter {
 			reader.moveDown();
 
 			reader.moveDown();  // point
-			final MarkerPoint markerPoint = new MarkerPoint();
+			final MarkerPoint markerPoint = EntityFactory.createMarkerPoint();
 			markerPoint.setX(Double.parseDouble(reader.getAttribute("x")));
 			markerPoint.setY(Double.parseDouble(reader.getAttribute("y")));
 			markerPoint.setOrderNumber(1L);
@@ -186,7 +187,7 @@ public class MarkerConverter implements Converter {
 
 			reader.moveUp();
 
-			final Marker area = new Marker();
+			final Marker area = EntityFactory.createMarker();
 			area.setType(MarkerType.AREA);
 			area.setMarkerIcon(getMarkerIconByName(type));
 			area.setMarkerPointList(Collections.singleton(markerPoint));

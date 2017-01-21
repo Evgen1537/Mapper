@@ -2,6 +2,7 @@ package com.evgenltd.mapper.core.entity;
 
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 
 import java.util.List;
 
@@ -30,10 +31,10 @@ public interface Tile {
 	byte[] getContent();
 
 	Long getImageId();
-	Image getImageEntity();
+	Picture getImageEntity();
 
-	javafx.scene.image.Image getImage();
-	void setImage(javafx.scene.image.Image image);
+	Image getImage();
+	void setImage(Image image);
 
 	String getHash();
 	void setHash(String hash);

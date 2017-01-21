@@ -1,6 +1,7 @@
 package com.evgenltd.mapper.core.bean;
 
 import com.evgenltd.mapper.core.entity.FolderEntry;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.enums.FolderState;
 import com.evgenltd.mapper.core.exception.TrackerException;
 import com.evgenltd.mapper.core.rule.LayerRefreshing;
@@ -103,7 +104,6 @@ public class TrackerBean extends AbstractBean {
 	private void syncInnerState()	{
 
 		loadAllFolderEntry()
-				.stream()
 				.forEach(folderEntry -> {
 					final boolean isLayerExists = isLayerExists(folderEntry.getSessionPath());
 					if(folderEntry.getState().equals(FolderState.ACTUAL) && !isLayerExists) {
@@ -304,7 +304,7 @@ public class TrackerBean extends AbstractBean {
 		if(isFolderEntryExists(sessionPath))	{
 			return false;
 		}
-		final FolderEntry folderEntry = new FolderEntry();
+		final FolderEntry folderEntry = EntityFactory.createFolderEntry();
 		folderEntry.setSessionPath(sessionPath);
 		folderEntry.setState(FolderState.ACTUAL);
 		getEntityManager().persist(folderEntry);

@@ -18,10 +18,7 @@ public class MarkerPointSuggestions {
 
         return sourcePointList
                 .stream()
-                .min((o1, o2) -> Double.compare(
-                        Point2D.distance(o1.getX(), o1.getY(), targetX, targetY),
-                        Point2D.distance(o2.getX(), o2.getY(), targetX, targetY)
-                ));
+                .min(Comparator.comparingDouble(o -> Point2D.distance(o.getX(), o.getY(), targetX, targetY)));
 
     }
 

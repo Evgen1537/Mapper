@@ -1,6 +1,6 @@
 package com.evgenltd.mapper.core.entity.envers;
 
-import com.evgenltd.mapper.core.entity.MarkerPoint;
+import com.evgenltd.mapper.core.entity.impl.MarkerPointImpl;
 import org.hibernate.envers.RevisionType;
 
 import javax.persistence.Column;
@@ -60,7 +60,7 @@ public class MarkerPointAud implements Aud,Serializable {
 
 	@Override
 	public Class<?> getTargetClass() {
-		return MarkerPoint.class;
+		return MarkerPointImpl.class;
 	}
 
 	@Override

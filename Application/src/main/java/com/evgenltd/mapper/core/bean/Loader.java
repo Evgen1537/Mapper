@@ -66,7 +66,7 @@ public interface Loader {
 
 	Optional<Tile> loadTile(Long tileId);
 
-	Image loadImage(final Long imageId);
+	Picture loadImage(final Long imageId);
 
 	// markers
 

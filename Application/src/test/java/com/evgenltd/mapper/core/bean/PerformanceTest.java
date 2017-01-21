@@ -5,6 +5,7 @@ import com.evgenltd.mapper.core.TestContextConfig;
 import com.evgenltd.mapper.core.TestUtils;
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,13 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 public class PerformanceTest {
 
 	@Autowired
+	@SuppressWarnings("unused")
 	private CommonDao commonDao;
 	@Autowired
+	@SuppressWarnings("unused")
 	private LayerBean layerBean;
 	@Autowired
+	@SuppressWarnings("unused")
 	private TileBean tileBean;
 
 	@Test
@@ -34,7 +38,7 @@ public class PerformanceTest {
 
 		// prepare
 
-		final Layer layer = new Layer();
+		final Layer layer = EntityFactory.createLayer();
 		commonDao.insert(layer);
 
 		System.out.println("Making test data");

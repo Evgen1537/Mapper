@@ -1,8 +1,12 @@
-package com.evgenltd.mapper.core.entity;
+package com.evgenltd.mapper.core.entity.impl;
 
 import com.evgenltd.mapper.core.Context;
+import com.evgenltd.mapper.core.entity.Layer;
+import com.evgenltd.mapper.core.entity.Picture;
+import com.evgenltd.mapper.core.entity.Tile;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.concurrent.Immutable;
@@ -30,7 +34,7 @@ public class LiteTile implements Tile {
 	@Enumerated(EnumType.STRING)
 	private ZLevel z;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = LayerImpl.class)
 	@JoinColumn(name = "layer_id")
 	private Layer layer;
 
@@ -40,7 +44,7 @@ public class LiteTile implements Tile {
 	private String hash;
 
 	@Transient
-	private SoftReference<Image> image = new SoftReference<>(null);
+	private SoftReference<Picture> image = new SoftReference<>(null);
 
 	public static LiteTile fromTile(@NotNull final Tile tile)	{
 		final LiteTile liteTile = new LiteTile();
@@ -59,7 +63,6 @@ public class LiteTile implements Tile {
 	public Long getId() {
 		return id;
 	}
-
 	@Override
 	public void setId(Long id) {
 		throw new UnsupportedOperationException();
@@ -69,7 +72,6 @@ public class LiteTile implements Tile {
 	public Double getX() {
 		return x;
 	}
-
 	@Override
 	public void setX(Double x) {
 		throw new UnsupportedOperationException();
@@ -79,7 +81,6 @@ public class LiteTile implements Tile {
 	public Double getY() {
 		return y;
 	}
-
 	@Override
 	public void setY(Double y) {
 		throw new UnsupportedOperationException();
@@ -89,7 +90,6 @@ public class LiteTile implements Tile {
 	public ZLevel getZ() {
 		return z;
 	}
-
 	@Override
 	public void setZ(ZLevel z) {
 		throw new UnsupportedOperationException();
@@ -99,7 +99,6 @@ public class LiteTile implements Tile {
 	public Layer getLayer() {
 		return layer;
 	}
-
 	@Override
 	public void setLayer(Layer layer) {
 		throw new UnsupportedOperationException();
@@ -109,15 +108,13 @@ public class LiteTile implements Tile {
 	public byte[] getContent() {
 		throw new UnsupportedOperationException();
 	}
-
 	@Override
 	public Long getImageId() {
 		return imageId;
 	}
-
 	@Override
-	public Image getImageEntity() {
-		Image image = this.image.get();
+	public Picture getImageEntity() {
+		Picture image = this.image.get();
 		if(image == null)	{
 			image = Context
 					.get()
@@ -130,12 +127,11 @@ public class LiteTile implements Tile {
 	}
 
 	@Override
-	public javafx.scene.image.Image getImage() {
+	public Image getImage() {
 		return getImageEntity().getImage();
 	}
-
 	@Override
-	public void setImage(javafx.scene.image.Image image) {
+	public void setImage(Image image) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -143,7 +139,6 @@ public class LiteTile implements Tile {
 	public String getHash() {
 		return hash;
 	}
-
 	@Override
 	public void setHash(String hash) {
 		throw new UnsupportedOperationException();
@@ -153,9 +148,9 @@ public class LiteTile implements Tile {
 	public List<Point2D> getLowLevelTilePointList() {
 		throw new UnsupportedOperationException();
 	}
-
 	@Override
 	public void setLowLevelTilePointList(List<Point2D> lowLevelTilePointList) {
 		throw new UnsupportedOperationException();
 	}
+
 }

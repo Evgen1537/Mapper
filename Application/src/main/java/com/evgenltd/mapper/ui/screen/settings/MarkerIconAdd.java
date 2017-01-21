@@ -1,6 +1,7 @@
 package com.evgenltd.mapper.ui.screen.settings;
 
 import com.evgenltd.mapper.core.entity.MarkerIcon;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.ui.screen.DialogScreen;
 import com.evgenltd.mapper.ui.util.UIConstants;
 import com.evgenltd.mapper.ui.util.UIUtils;
@@ -41,7 +42,7 @@ public class MarkerIconAdd extends DialogScreen<MarkerIcon> {
 	@Override
 	protected MarkerIcon resultConverter(ButtonType buttonType) {
 		if(buttonType.equals(ButtonType.OK))	{
-			return new MarkerIcon(name.getText(), image);
+			return EntityFactory.createMarkerIcon(name.getText(), image);
 		}
 		return null;
 	}

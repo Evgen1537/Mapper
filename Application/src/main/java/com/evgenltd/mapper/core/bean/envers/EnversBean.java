@@ -109,14 +109,13 @@ public class EnversBean extends AbstractBean {
 		getLastAcceptedChangeRevisionNumber()
 				.ifPresent(actualRevisionNumber -> {
 
-					Arrays
-							.asList(
+					Stream
+							.of(
 									loadChangeList(LayerAud.class, actualRevisionNumber),
 									loadChangeList(TileAud.class, actualRevisionNumber),
 									loadChangeList(MarkerAud.class, actualRevisionNumber),
 									loadChangeList(MarkerPointAud.class, actualRevisionNumber)
 							)
-							.stream()
 							.flatMap(Collection::stream)
 							.map(aud -> resolvePreviousEntityState(aud, actualRevisionNumber))
 							.sorted(CHANGE_COMPARATOR)

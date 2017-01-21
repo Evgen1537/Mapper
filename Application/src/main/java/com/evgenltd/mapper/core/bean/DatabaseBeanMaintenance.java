@@ -1,7 +1,7 @@
 package com.evgenltd.mapper.core.bean;
 
 import com.evgenltd.mapper.core.bean.envers.EnversBean;
-import com.evgenltd.mapper.core.entity.MarkerIcon;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.util.Queries;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
@@ -68,13 +68,13 @@ public class DatabaseBeanMaintenance extends AbstractBean {
 		final Image village = new Image("/image/marker/village.png");
 		final Image water = new Image("/image/marker/water.png");
 
-		getEntityManager().persist(new MarkerIcon("Cave", cave));
-		getEntityManager().persist(new MarkerIcon("Claim", claim));
-		getEntityManager().persist(new MarkerIcon("Clay", clay));
-		getEntityManager().persist(new MarkerIcon("None", none));
-		getEntityManager().persist(new MarkerIcon("Soil", soil));
-		getEntityManager().persist(new MarkerIcon("Village", village));
-		getEntityManager().persist(new MarkerIcon("Water", water));
+		getEntityManager().persist(EntityFactory.createMarkerIcon("Cave", cave));
+		getEntityManager().persist(EntityFactory.createMarkerIcon("Claim", claim));
+		getEntityManager().persist(EntityFactory.createMarkerIcon("Clay", clay));
+		getEntityManager().persist(EntityFactory.createMarkerIcon("None", none));
+		getEntityManager().persist(EntityFactory.createMarkerIcon("Soil", soil));
+		getEntityManager().persist(EntityFactory.createMarkerIcon("Village", village));
+		getEntityManager().persist(EntityFactory.createMarkerIcon("Water", water));
 	}
 
 	// cleanup

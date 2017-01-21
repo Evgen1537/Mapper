@@ -2,7 +2,7 @@ package com.evgenltd.mapper.core;
 
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
-import com.evgenltd.mapper.core.entity.TileImpl;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.util.Constants;
 import com.evgenltd.mapper.core.util.Utils;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
@@ -41,7 +41,7 @@ public class TestUtils {
 	public static Tile createTile(double x, double y, int z, Layer layer) {
 		final Image image = drawRandomImage();
 		final String hash = Utils.calculateHash(image);
-		final Tile tile = new TileImpl();
+		final Tile tile = EntityFactory.createTile();
 		tile.setX(x);
 		tile.setY(y);
 		tile.setZ(ZLevel.valueOf(z));

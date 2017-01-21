@@ -30,12 +30,16 @@ import java.util.stream.Collectors;
 public class LayerBean extends AbstractBean {
 
 	@Autowired
+	@SuppressWarnings("unused")
 	private Loader loader;
 	@Autowired
+	@SuppressWarnings("unused")
 	private TileBean tileBean;
 	@Autowired
+	@SuppressWarnings("unused")
 	private MarkerBean markerBean;
 	@Autowired
+	@SuppressWarnings("unused")
 	private LayerMatcherBean layerMatcherBean;
 
 	private Long orderNumberIdentity = null;

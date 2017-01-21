@@ -41,6 +41,7 @@ public class MarkerNode extends NodeGroup {
 	private Polygon2D polygonForIntersection;
 	private Polyline2D polyline;
 
+	// todo reimplement
 	private Optional<MarkerPoint> firstSuggestedPoint = Optional.empty();
 	private Optional<MarkerPoint> secondSuggestedPoint = Optional.empty();
 

@@ -8,6 +8,7 @@ import com.evgenltd.mapper.core.bean.envers.EnversBean;
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
 import com.evgenltd.mapper.core.entity.envers.*;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.enums.Visibility;
 import org.hibernate.envers.RevisionType;
@@ -33,14 +34,16 @@ import java.util.List;
 public class EnversTest {
 
 	@Autowired
+	@SuppressWarnings("unused")
 	private CommonDao commonDao;
 	@Autowired
+	@SuppressWarnings("unused")
 	private EnversBean enversBean;
 
 	@Test
 	public void testMainWorkflow()	{
 
-		final Layer layer = new Layer();
+		final Layer layer = EntityFactory.createLayer();
 		layer.setName("Test");
 		layer.setVisibility(Visibility.FULL);
 		layer.setType(LayerType.SESSION);
@@ -52,7 +55,7 @@ public class EnversTest {
 
 		Assert.assertNull(commonDao.find(Layer.class, layerId));
 
-		final Layer another = new Layer();
+		final Layer another = EntityFactory.createLayer();
 		another.setName("Another");
 		another.setVisibility(Visibility.NONE);
 		another.setType(LayerType.SESSION);
@@ -66,7 +69,7 @@ public class EnversTest {
 	@Test
 	public void testLayerEnversWorkflow()	{
 
-		final Layer layer = new Layer();
+		final Layer layer = EntityFactory.createLayer();
 		layer.setName("Test");
 		layer.setType(LayerType.SESSION);
 		layer.setVisibility(Visibility.FULL);
@@ -104,7 +107,7 @@ public class EnversTest {
 				createChange(LayerAud.class, RevisionType.DEL)
 		);
 
-		Collections.sort(source, new ChangeComparator());
+		source.sort(new ChangeComparator());
 
 		Assert.assertEquals(LayerAud.class, source.get(0).getClass());
 		Assert.assertEquals(RevisionType.ADD, source.get(0).getRevType());

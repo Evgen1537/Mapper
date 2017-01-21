@@ -1,7 +1,11 @@
-package com.evgenltd.mapper.core.entity;
+package com.evgenltd.mapper.core.entity.impl;
 
+import com.evgenltd.mapper.core.entity.Layer;
+import com.evgenltd.mapper.core.entity.Picture;
+import com.evgenltd.mapper.core.entity.Tile;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.hibernate.envers.RelationTargetAuditMode;
@@ -30,7 +34,7 @@ public class TileImpl implements Tile {
 	@Enumerated(EnumType.STRING)
 	private ZLevel z;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = LayerImpl.class)
 	@JoinColumn(name = "layer_id")
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	private Layer layer;
@@ -42,11 +46,12 @@ public class TileImpl implements Tile {
 					CascadeType.MERGE,
 					CascadeType.REFRESH,
 					CascadeType.DETACH
-			}
+			},
+			targetEntity = PictureImpl.class
 	)
 	@JoinColumn(name = "image_id")
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-	private Image image = new Image();
+	private Picture image = EntityFactory.createPicture();
 
 	private String hash;
 
@@ -58,7 +63,6 @@ public class TileImpl implements Tile {
 	public Long getId() {
 		return id;
 	}
-
 	@Override
 	public void setId(Long id) {
 		this.id = id;
@@ -68,7 +72,6 @@ public class TileImpl implements Tile {
 	public Double getX() {
 		return x;
 	}
-
 	@Override
 	public void setX(Double x) {
 		this.x = x;
@@ -78,7 +81,6 @@ public class TileImpl implements Tile {
 	public Double getY() {
 		return y;
 	}
-
 	@Override
 	public void setY(Double y) {
 		this.y = y;
@@ -88,7 +90,6 @@ public class TileImpl implements Tile {
 	public ZLevel getZ() {
 		return z;
 	}
-
 	@Override
 	public void setZ(ZLevel z) {
 		this.z = z;
@@ -98,7 +99,6 @@ public class TileImpl implements Tile {
 	public Layer getLayer() {
 		return layer;
 	}
-
 	@Override
 	public void setLayer(Layer layer) {
 		this.layer = layer;
@@ -108,24 +108,20 @@ public class TileImpl implements Tile {
 	public byte[] getContent() {
 		return image.getContent();
 	}
-
 	@Override
-	public javafx.scene.image.Image getImage() {
+	public Image getImage() {
 		return image.getImage();
 	}
-
 	@Override
 	public Long getImageId()	{
 		return image.getId();
 	}
-
 	@Override
-	public Image getImageEntity() {
+	public Picture getImageEntity() {
 		return image;
 	}
-
 	@Override
-	public void setImage(javafx.scene.image.Image image) {
+	public void setImage(Image image) {
 		this.image.setImage(image);
 	}
 
@@ -133,7 +129,6 @@ public class TileImpl implements Tile {
 	public String getHash() {
 		return hash;
 	}
-
 	@Override
 	public void setHash(String hash) {
 		this.hash = hash;
@@ -143,9 +138,9 @@ public class TileImpl implements Tile {
 	public List<Point2D> getLowLevelTilePointList() {
 		return lowLevelTilePointList;
 	}
-
 	@Override
 	public void setLowLevelTilePointList(List<Point2D> lowLevelTilePointList) {
 		this.lowLevelTilePointList = lowLevelTilePointList;
 	}
+
 }

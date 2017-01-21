@@ -1,9 +1,9 @@
 package com.evgenltd.mapper.core.rule;
 
 import com.evgenltd.mapper.core.entity.Layer;
-import com.evgenltd.mapper.core.entity.LiteTile;
 import com.evgenltd.mapper.core.entity.Tile;
-import com.evgenltd.mapper.core.entity.TileImpl;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
+import com.evgenltd.mapper.core.entity.impl.LiteTile;
 import com.evgenltd.mapper.core.util.Constants;
 import com.evgenltd.mapper.core.util.Utils;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
@@ -145,7 +145,7 @@ public class LayerRefreshing {
 			return Optional.empty();
 		}
 
-		final Tile tile = tileFromDataBase.orElse(new TileImpl());
+		final Tile tile = tileFromDataBase.orElse(EntityFactory.createTile());
 
 		final Image image = new Image("file:"+tileFile);
 		final String hash = Utils.calculateHash(image);

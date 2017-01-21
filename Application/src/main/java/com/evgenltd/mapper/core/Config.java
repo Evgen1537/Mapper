@@ -1,7 +1,7 @@
 package com.evgenltd.mapper.core;
 
-import com.evgenltd.mapper.core.bean.DatabaseBeanMaintenance;
 import com.evgenltd.mapper.core.aop.PersistenceInterceptor;
+import com.evgenltd.mapper.core.bean.DatabaseBeanMaintenance;
 import com.evgenltd.mapper.core.importer.LayerConverter;
 import com.evgenltd.mapper.core.importer.LayerOld;
 import com.evgenltd.mapper.core.importer.MarkerConverter;
@@ -24,11 +24,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.support.DefaultTransactionStatus;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.persistence.EntityManagerFactory;
-import java.lang.reflect.InvocationHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;

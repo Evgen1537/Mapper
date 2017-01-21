@@ -3,6 +3,7 @@ package com.evgenltd.mapper.core.rule;
 import com.evgenltd.mapper.core.TestUtils;
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.util.Utils;
 import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import org.junit.Assert;
@@ -21,7 +22,7 @@ public class LayerLevelGenerationTest {
 	@Test
 	public void mainTest()	{
 
-		final Layer layer = new Layer();
+		final Layer layer = EntityFactory.createLayer();
 		final Tile tile1 = TestUtils.createTile(0, 0, 1, layer);
 		final Tile tile2 = TestUtils.createTile(0,1,1,layer);
 		final Tile tile3 = TestUtils.createTile(9,0,1,layer);

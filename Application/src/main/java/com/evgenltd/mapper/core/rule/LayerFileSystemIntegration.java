@@ -2,6 +2,7 @@ package com.evgenltd.mapper.core.rule;
 
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.enums.Visibility;
 import com.evgenltd.mapper.core.util.Utils;
@@ -43,7 +44,7 @@ public class LayerFileSystemIntegration {
 
 		checkSessionPath(sessionFolder);
 
-		final Layer layer = new Layer();
+		final Layer layer = EntityFactory.createLayer();
 		layer.setType(LayerType.SESSION);
 		layer.setName(sessionFolder.getName());
 		layer.setSessionPath(sessionFolder.getPath());

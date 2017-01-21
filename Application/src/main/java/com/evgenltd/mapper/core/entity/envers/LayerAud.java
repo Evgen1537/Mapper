@@ -1,6 +1,6 @@
 package com.evgenltd.mapper.core.entity.envers;
 
-import com.evgenltd.mapper.core.entity.Layer;
+import com.evgenltd.mapper.core.entity.impl.LayerImpl;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.enums.Visibility;
 import org.hibernate.envers.RevisionType;
@@ -69,7 +69,7 @@ public class LayerAud implements Aud,Serializable {
 
 	@Override
 	public Class<?> getTargetClass() {
-		return Layer.class;
+		return LayerImpl.class;
 	}
 
 	@Override

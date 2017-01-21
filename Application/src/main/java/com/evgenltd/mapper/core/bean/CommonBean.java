@@ -2,6 +2,7 @@ package com.evgenltd.mapper.core.bean;
 
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Marker;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.enums.Visibility;
 import com.evgenltd.mapper.core.rule.LayerMerge;
@@ -29,14 +30,19 @@ import java.util.stream.Collectors;
 public class CommonBean extends AbstractBean {
 
 	@Autowired
+	@SuppressWarnings("unused")
 	private SettingsBean settingsBean;
 	@Autowired
+	@SuppressWarnings("unused")
 	private LayerBean layerBean;
 	@Autowired
+	@SuppressWarnings("unused")
 	private TileBean tileBean;
 	@Autowired
+	@SuppressWarnings("unused")
 	private MarkerBean markerBean;
 	@Autowired
+	@SuppressWarnings("unused")
 	private Loader loader;
 
 	@Transactional
@@ -106,7 +112,7 @@ public class CommonBean extends AbstractBean {
 			throw new IllegalArgumentException("need at least two layers");
 		}
 
-		final Layer targetLayer = new Layer();
+		final Layer targetLayer = EntityFactory.createLayer();
 		targetLayer.setName("Merge result "+ LocalDateTime.now());
 		targetLayer.setOrderNumber(layerBean.getNewOrderNumber());
 		targetLayer.setType(LayerType.SESSION);

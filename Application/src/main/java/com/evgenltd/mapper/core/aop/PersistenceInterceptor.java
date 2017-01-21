@@ -1,8 +1,6 @@
 package com.evgenltd.mapper.core.aop;
 
 import com.evgenltd.mapper.core.Context;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.Transaction;
 import org.springframework.transaction.support.TransactionSynchronizationManager;

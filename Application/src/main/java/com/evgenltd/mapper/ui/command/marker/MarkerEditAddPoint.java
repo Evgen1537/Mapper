@@ -1,6 +1,7 @@
 package com.evgenltd.mapper.ui.command.marker;
 
 import com.evgenltd.mapper.core.entity.MarkerPoint;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.ui.UIContext;
 import com.evgenltd.mapper.ui.component.command.Command;
 import com.evgenltd.mapper.ui.component.command.CommandTemplate;
@@ -47,12 +48,9 @@ public class MarkerEditAddPoint extends Command{
 	private boolean addPointCallback(@NotNull final Point2D selectedPoint)	{
 
 		final MarkerEditing markerEditing = UIContext.get().getMarkerEditing();
-
-		MarkerNode markerNode = markerEditing.getMarkerNode();
-
-		MarkerPoint markerPoint = new MarkerPoint(selectedPoint.x(), selectedPoint.y(), 0L, markerNode.getMarker());
-
-		MarkerPointNode markerPointNode = new MarkerPointNode(markerNode, markerPoint);
+		final MarkerNode markerNode = markerEditing.getMarkerNode();
+		final MarkerPoint markerPoint = EntityFactory.createMarkerPoint(selectedPoint.x(), selectedPoint.y(), 0L, markerNode.getMarker());
+		final MarkerPointNode markerPointNode = new MarkerPointNode(markerNode, markerPoint);
 
 		markerNode.insert(markerPointNode);
 

@@ -2,7 +2,7 @@ package com.evgenltd.mapper.core.rule;
 
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
-import com.evgenltd.mapper.core.entity.TileImpl;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.util.Constants;
 import math.geom2d.Point2D;
 import org.junit.Assert;
@@ -195,21 +195,20 @@ public class LayerMatcherTest {
 	}
 
 	private Layer makeLayer(final Long id, final Point2D offset, final Tile... tiles)	{
-		final Layer layer = new Layer();
+		final Layer layer = EntityFactory.createLayer();
 		layer.setId(id);
 		layer.setX(offset.x());
 		layer.setY(offset.y());
 		layer.setTileSet(
 				Arrays
-						.asList(tiles)
-						.stream()
+						.stream(tiles)
 						.collect(Collectors.toSet())
 		);
 		return layer;
 	}
 
 	private Tile makeTile(final double x, final double y, final String hash)	{
-		final Tile tile = new TileImpl();
+		final Tile tile = EntityFactory.createTile();
 		tile.setX(x);
 		tile.setY(y);
 		tile.setHash(hash);
