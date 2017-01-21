@@ -6,6 +6,7 @@ import com.evgenltd.mapper.core.util.Constants;
 import com.evgenltd.mapper.core.util.DataBaseBackup;
 import com.evgenltd.mapper.ui.screen.main.Main;
 import com.evgenltd.mapper.ui.util.UIExceptionHandler;
+import com.evgenltd.mapper.ui.util.UpdateChecker;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -64,6 +65,8 @@ public class Application extends javafx.application.Application {
 		UIContext.get().openScreen(new Main());
 
 		Context.get().getRollbar().logLaunch();
+
+		UpdateChecker.of().checkWithNotification();
 	}
 
 	@Override

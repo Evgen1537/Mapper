@@ -1,9 +1,9 @@
-CREATE TABLE images (
+CREATE TABLE IF NOT EXISTS images (
 	id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	content	BLOB
 );
 
-CREATE TABLE layers (
+CREATE TABLE IF NOT EXISTS layers (
 	id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	name	TEXT,
 	type	TEXT,
@@ -14,14 +14,14 @@ CREATE TABLE layers (
 	session_path text
 );
 
-CREATE TABLE marker_icons (
+CREATE TABLE IF NOT EXISTS marker_icons (
 	id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	name	TEXT,
 	image_id	INTEGER,
 	FOREIGN KEY(image_id) REFERENCES images (id)
 );
 
-CREATE TABLE marker_points (
+CREATE TABLE IF NOT EXISTS marker_points (
 	id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	marker_id	INTEGER,
 	x	REAL,
@@ -30,7 +30,7 @@ CREATE TABLE marker_points (
 	FOREIGN KEY(marker_id) REFERENCES markers (id)
 );
 
-CREATE TABLE markers (
+CREATE TABLE IF NOT EXISTS markers (
 	id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	type	TEXT,
 	marker_icon_id	INTEGER,
@@ -45,7 +45,7 @@ CREATE TABLE markers (
 	FOREIGN KEY(exit_id) REFERENCES layers (id)
 );
 
-CREATE TABLE tiles (
+CREATE TABLE IF NOT EXISTS tiles (
 	id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	x	REAL,
 	y	REAL,
@@ -57,13 +57,13 @@ CREATE TABLE tiles (
 	FOREIGN KEY(image_id) REFERENCES images (id)
 );
 
-create table REVINFO (
+create table IF NOT EXISTS REVINFO (
     id integer not null primary key autoincrement,
     timestamp integer,
     executed integer
 );
 
-CREATE TABLE layers_AUD (
+CREATE TABLE IF NOT EXISTS layers_AUD (
     id integer not null,
     REV integer not null,
     REVTYPE integer,
@@ -77,7 +77,7 @@ CREATE TABLE layers_AUD (
     primary key (id, REV)
 );
 
-CREATE TABLE tiles_AUD (
+CREATE TABLE IF NOT EXISTS tiles_AUD (
     id integer not null,
     REV integer not null,
     REVTYPE integer,
@@ -90,7 +90,7 @@ CREATE TABLE tiles_AUD (
     primary key (id, REV)
 );
 
-CREATE TABLE markers_AUD (
+CREATE TABLE IF NOT EXISTS markers_AUD (
     id integer not null,
     REV integer not null,
     REVTYPE integer,
@@ -105,7 +105,7 @@ CREATE TABLE markers_AUD (
     primary key (id, REV)
 );
 
-CREATE TABLE marker_points_AUD (
+CREATE TABLE IF NOT EXISTS marker_points_AUD (
     id integer not null,
     REV integer not null,
     REVTYPE integer,
@@ -116,54 +116,8 @@ CREATE TABLE marker_points_AUD (
     primary key (id, REV)
 );
 
-insert into REVINFO (id,timestamp,executed) values (null,0,-1);
-
-insert into layers (id,name,type,x,y,visibility,order_number) values (null,"Ground","GROUND",0,0,"FULL",0);
-insert into layers_AUD (id,REV,REVTYPE,name,type,x,y,visibility,order_number) values (
-    (select max(id) from layers),
-    (select id from REVINFO),
-    0,"Ground","GROUND",0,0,"FULL",0
+CREATE TABLE IF NOT EXISTS tracker_folders (
+    id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    session_path text,
+    state text
 );
-
-insert into layers (id,name,type,x,y,visibility,order_number) values (null,"Cave","CAVE",0,0,"FULL",1);
-insert into layers_AUD (id,REV,REVTYPE,name,type,x,y,visibility,order_number) values (
-    (select max(id) from layers),
-    (select id from REVINFO),
-    0,"Cave","CAVE",0,0,"FULL",1
-);
-
-insert into layers (id,name,type,x,y,visibility,order_number) values (null,"Cave","CAVE",0,0,"FULL",2);
-insert into layers_AUD (id,REV,REVTYPE,name,type,x,y,visibility,order_number) values (
-    (select max(id) from layers),
-    (select id from REVINFO),
-    0,"Cave","CAVE",0,0,"FULL",2
-);
-
-insert into layers (id,name,type,x,y,visibility,order_number) values (null,"Cave","CAVE",0,0,"FULL",3);
-insert into layers_AUD (id,REV,REVTYPE,name,type,x,y,visibility,order_number) values (
-    (select max(id) from layers),
-    (select id from REVINFO),
-    0,"Cave","CAVE",0,0,"FULL",3
-);
-
-insert into layers (id,name,type,x,y,visibility,order_number) values (null,"Cave","CAVE",0,0,"FULL",4);
-insert into layers_AUD (id,REV,REVTYPE,name,type,x,y,visibility,order_number) values (
-    (select max(id) from layers),
-    (select id from REVINFO),
-    0,"Cave","CAVE",0,0,"FULL",4
-);
-
-insert into layers (id,name,type,x,y,visibility,order_number) values (null,"Cave","CAVE",0,0,"FULL",5);
-insert into layers_AUD (id,REV,REVTYPE,name,type,x,y,visibility,order_number) values (
-    (select max(id) from layers),
-    (select id from REVINFO),
-    0,"Cave","CAVE",0,0,"FULL",5
-);
-
-
-
-
-
-
-
-

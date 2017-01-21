@@ -24,6 +24,7 @@ public class Main extends AbstractScreen {
 	private final StatusBar statusBar = new StatusBar();
 
 	private final TaskManager taskManager = new TaskManager(statusBar);
+	private final MemoryUsage memoryUsage = new MemoryUsage();
 
 	private final MapViewerWrapper mapViewerWrapper = UIContext.get().getMapViewerWrapper();
 
@@ -37,6 +38,8 @@ public class Main extends AbstractScreen {
 		dockPane.dockLeft(null, "Layer", this::layerBrowserBuilder);
 		dockPane.dockRight(null, "Marker", this::markerBrowserBuilder);
 		dockPane.dockBottom(null, "Event Log", this::eventLogBuilder, UIContext.get().getEventLog());
+
+		statusBar.getLeftItems().addAll(memoryUsage);
 
 		final BorderPane body = new BorderPane();
 		body.setTop(toolbar.getRoot());

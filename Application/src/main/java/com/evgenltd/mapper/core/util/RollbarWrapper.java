@@ -69,7 +69,9 @@ public class RollbarWrapper {
 				getClass().getPackage().getImplementationVersion(),
 				RevisionHelper.getRevision()
 		);
-		properties.put("version",version);
+		properties.put("version", version);
+
+		properties.put("memory", formatMemoryStat());
 
 		return properties;
 	}
@@ -98,4 +100,22 @@ public class RollbarWrapper {
 
 		return namedByteArray;
 	}
+
+	private String formatMemoryStat() {
+
+		final Runtime runtime = Runtime.getRuntime();
+		final long maxMemory = runtime.maxMemory() / 1_000_000;
+		final long totalMemory = runtime.totalMemory() / 1_000_000;
+		final long freeMemory = runtime.freeMemory() / 1_000_000;
+		final long usedMemory = totalMemory - freeMemory;
+
+		return String.format(
+				"(%s MB / %s MB) max %s MB",
+				usedMemory,
+				totalMemory,
+				maxMemory
+		);
+
+	}
+
 }
