@@ -2,6 +2,7 @@ package com.evgenltd.mapper.core.bean;
 
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
+import com.evgenltd.mapper.core.entity.impl.LayerImpl;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.enums.Visibility;
 import com.evgenltd.mapper.core.rule.*;
@@ -74,7 +75,7 @@ public class LayerBean extends AbstractBean {
 			final BiConsumer<Long,Long> progressUpdater
 	)	{
 
-		final Layer layer = getEntityManager().find(Layer.class, layerId);
+		final Layer layer = getEntityManager().find(LayerImpl.class, layerId);
 		LayerLevelGeneration.execute(
 				layer,
 				sourceTileList,
@@ -93,7 +94,7 @@ public class LayerBean extends AbstractBean {
 			final BiConsumer<Long, Long> progressUpdater
 	) {
 
-		final Layer layer = getEntityManager().find(Layer.class, layerId);
+		final Layer layer = getEntityManager().find(LayerImpl.class, layerId);
 		LayerRefreshing.refreshLayerFromFileSystem(
 				layer,
 				true,
@@ -154,7 +155,7 @@ public class LayerBean extends AbstractBean {
 
 		final List<Layer> targetLayerList = layerIdList
 				.stream()
-				.map(layerId -> getEntityManager().find(Layer.class, layerId))
+				.map(layerId -> getEntityManager().find(LayerImpl.class, layerId))
 				.collect(Collectors.toList());
 
 		final Long maxOrderNumber = targetLayerList
@@ -186,7 +187,7 @@ public class LayerBean extends AbstractBean {
 
 		final List<Layer> targetLayerList = layerIdList
 				.stream()
-				.map(layerId -> getEntityManager().find(Layer.class, layerId))
+				.map(layerId -> getEntityManager().find(LayerImpl.class, layerId))
 				.collect(Collectors.toList());
 
 		final Long minOrderNumber = targetLayerList
@@ -259,7 +260,7 @@ public class LayerBean extends AbstractBean {
 			final BiConsumer<Long, Long> progressUpdater
 	)	{
 
-		final Layer layer = getEntityManager().find(Layer.class, layerId);
+		final Layer layer = getEntityManager().find(LayerImpl.class, layerId);
 		final String layerFolderName = layer.getType().isCave()
 				? String.format("%s (%s)", layer.getName(), layer.getOrderNumber())
 				: layer.getName();

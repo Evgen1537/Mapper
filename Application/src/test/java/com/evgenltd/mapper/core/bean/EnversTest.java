@@ -9,6 +9,7 @@ import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Tile;
 import com.evgenltd.mapper.core.entity.envers.*;
 import com.evgenltd.mapper.core.entity.impl.EntityFactory;
+import com.evgenltd.mapper.core.entity.impl.LayerImpl;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.enums.Visibility;
 import org.hibernate.envers.RevisionType;
@@ -53,7 +54,7 @@ public class EnversTest {
 
 		enversBean.undo();
 
-		Assert.assertNull(commonDao.find(Layer.class, layerId));
+		Assert.assertNull(commonDao.find(LayerImpl.class, layerId));
 
 		final Layer another = EntityFactory.createLayer();
 		another.setName("Another");

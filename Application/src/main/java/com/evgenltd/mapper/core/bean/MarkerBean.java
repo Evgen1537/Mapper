@@ -3,6 +3,8 @@ package com.evgenltd.mapper.core.bean;
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Marker;
 import com.evgenltd.mapper.core.entity.MarkerIcon;
+import com.evgenltd.mapper.core.entity.impl.LayerImpl;
+import com.evgenltd.mapper.core.entity.impl.MarkerImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class MarkerBean extends AbstractBean {
 	public void removeMarkersById(final List<Long> markerIdList)	{
 
 		markerIdList.forEach(markerId -> getEntityManager().remove(
-				getEntityManager().find(Marker.class, markerId)
+				getEntityManager().find(MarkerImpl.class, markerId)
 		));
 
 	}
@@ -61,7 +63,7 @@ public class MarkerBean extends AbstractBean {
 
 		final Layer targetLayer = targetLayerId == null
 				? null
-				: getEntityManager().find(Layer.class, targetLayerId);
+				: getEntityManager().find(LayerImpl.class, targetLayerId);
 
 		loader.loadLinkedMarkerList(layerIdList)
 				.forEach(marker -> {

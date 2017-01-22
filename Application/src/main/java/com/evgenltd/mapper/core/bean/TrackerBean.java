@@ -11,7 +11,6 @@ import com.evgenltd.mapper.ui.component.eventlog.Message;
 import math.geom2d.Point2D;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,16 +54,16 @@ public class TrackerBean extends AbstractBean {
 	private boolean trackedFolderInvalidated = false;
 	private Consumer<List<FolderEntry>> trackedFolderChangingListener = folderEntryList -> {};
 
-	@Scheduled(fixedDelay = Constants.TRACKER_REMINDER_DELAY)
 	@SuppressWarnings("unused")
-	public void remind() {
+	@Transactional
+	public void doTrackerWork() {
 
 		if(!settingsBean.isEnableTracker())	{
 			return;
 		}
 
 		try {
-			doTrackerWork();
+			doTrackerWorkImpl();
 		}catch(TrackerException te)	{
 			settingsBean.setEnableTracker(false);
 			enableStateListener.accept(false);
@@ -84,8 +83,7 @@ public class TrackerBean extends AbstractBean {
 
 	}
 
-	@Transactional
-	private void doTrackerWork()	{
+	private void doTrackerWorkImpl()	{
 
 		trackedFolderInvalidated = false;
 
@@ -125,7 +123,7 @@ public class TrackerBean extends AbstractBean {
 
 	private void syncMapFolder()	{
 
-		scanMapFolder().stream().forEach(sessionFolder -> {
+		scanMapFolder().forEach(sessionFolder -> {
 
 			final boolean sessionFolderAlreadyTracked = isFolderEntryExists(sessionFolder.getAbsolutePath());
 
@@ -300,6 +298,7 @@ public class TrackerBean extends AbstractBean {
 
 	// folder entry crud
 
+	@Transactional
 	public boolean addFolderEntry(final String sessionPath)	{
 		if(isFolderEntryExists(sessionPath))	{
 			return false;
@@ -311,16 +310,19 @@ public class TrackerBean extends AbstractBean {
 		return true;
 	}
 
+	@Transactional
 	public void markFolderEntryAsActual(final FolderEntry folderEntry)	{
 		folderEntry.setState(FolderState.ACTUAL);
 		getEntityManager().merge(folderEntry);
 	}
 
+	@Transactional
 	public void markFolderEntryAsDeleted(final FolderEntry folderEntry)	{
 		folderEntry.setState(FolderState.DELETED);
 		getEntityManager().merge(folderEntry);
 	}
 
+	@Transactional
 	public void deleteFolderEntry(final FolderEntry folderEntry)	{
 		getEntityManager().remove(getEntityManager().merge(folderEntry));
 	}
@@ -368,6 +370,7 @@ public class TrackerBean extends AbstractBean {
 				.isEmpty();
 	}
 
+	@Transactional(readOnly = true)
 	public List<FolderEntry> loadAllFolderEntry()	{
 		return getEntityManager()
 				.createQuery("from FolderEntry", FolderEntry.class)

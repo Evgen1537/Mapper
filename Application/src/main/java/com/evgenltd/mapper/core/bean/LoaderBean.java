@@ -3,6 +3,7 @@ package com.evgenltd.mapper.core.bean;
 import com.evgenltd.mapper.core.entity.*;
 import com.evgenltd.mapper.core.entity.dto.LayerDto;
 import com.evgenltd.mapper.core.entity.impl.LiteTile;
+import com.evgenltd.mapper.core.entity.impl.PictureImpl;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.rule.TileInfo;
 import com.evgenltd.mapper.core.rule.TileProvider;
@@ -271,7 +272,7 @@ public class LoaderBean extends AbstractBean implements Loader,TileProvider	{
 
 	@Override
 	public Picture loadImage(final Long imageId)	{
-		return getEntityManager().find(Picture.class, imageId);
+		return getEntityManager().find(PictureImpl.class, imageId);
 	}
 
 	// markers

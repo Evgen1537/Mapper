@@ -3,6 +3,7 @@ package com.evgenltd.mapper.core.bean;
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Marker;
 import com.evgenltd.mapper.core.entity.impl.EntityFactory;
+import com.evgenltd.mapper.core.entity.impl.LayerImpl;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.enums.Visibility;
 import com.evgenltd.mapper.core.rule.LayerMerge;
@@ -167,6 +168,6 @@ public class CommonBean extends AbstractBean {
 	}
 
 	private Layer findLayer(final Long id)	{
-		return getEntityManager().find(Layer.class, id);
+		return getEntityManager().find(LayerImpl.class, id);
 	}
 }
