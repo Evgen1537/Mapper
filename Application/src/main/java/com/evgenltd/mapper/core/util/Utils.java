@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import math.geom2d.line.Line2D;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.proxy.HibernateProxy;
+import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.MessageDigest;
@@ -285,4 +288,26 @@ public class Utils {
 	public static boolean isDevelopmentEnvironment()	{
 		return Utils.class.getPackage().getImplementationVersion() == null;
 	}
+
+	public static Long getId(@Nullable final Object proxy) {
+
+		if (proxy == null) {
+			return null;
+		}
+
+		if (!(proxy instanceof HibernateProxy)) {
+			return null;
+		}
+
+		final HibernateProxy hibernateProxy = (HibernateProxy) proxy;
+		final Serializable value = hibernateProxy.getHibernateLazyInitializer().getIdentifier();
+		if (value instanceof Number) {
+			final Number numberValue = (Number) value;
+			return numberValue.longValue();
+		}
+
+		return null;
+
+	}
+
 }

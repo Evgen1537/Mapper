@@ -14,6 +14,7 @@ import javafx.geometry.Point2D;
 import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,10 @@ import java.util.stream.Collectors;
 @ParametersAreNonnullByDefault
 @Transactional(readOnly = true)
 public class LoaderBean extends AbstractBean implements Loader,TileProvider	{
+
+	@Autowired
+	@SuppressWarnings("unused")
+	private ImageCache imageCache;
 
 	// layers
 
@@ -73,6 +78,8 @@ public class LoaderBean extends AbstractBean implements Loader,TileProvider	{
 			tileSet.forEach(tile -> {
 				final List<Point2D> tilePoint = loadTilePoints(layer.getId(),tile);
 				tile.setLowLevelTilePointList(tilePoint);
+				final Picture image = tile.getImageEntity();
+				imageCache.getImageAsync(Utils.getId(image), tile::setImageEntity);
 			});
 
 			layer.setTileSet(new HashSet<>(tileSet));

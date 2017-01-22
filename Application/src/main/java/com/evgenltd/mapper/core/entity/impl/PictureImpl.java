@@ -15,7 +15,7 @@ import java.io.InputStream;
  * Author:  Evgeniy
  * Created: 13-06-2016 01:12
  */
-@Entity
+@Entity(name = "Image")
 @Table(name = "images")
 public class PictureImpl implements Picture {
 

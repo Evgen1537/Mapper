@@ -108,17 +108,24 @@ public class TileImpl implements Tile {
 	public byte[] getContent() {
 		return image.getContent();
 	}
-	@Override
-	public Image getImage() {
-		return image.getImage();
-	}
+
 	@Override
 	public Long getImageId()	{
 		return image.getId();
 	}
+
 	@Override
 	public Picture getImageEntity() {
 		return image;
+	}
+	@Override
+	public void setImageEntity(Picture picture) {
+		this.image = picture;
+	}
+
+	@Override
+	public Image getImage() {
+		return image.getImage();
 	}
 	@Override
 	public void setImage(Image image) {

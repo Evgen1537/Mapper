@@ -143,6 +143,10 @@ public class UIContext {
 		dockPane.refresh();
 	}
 
+	public void close() {
+		mapViewerWrapper.stop();
+	}
+
 	//
 
 	public boolean isDebugMode() {

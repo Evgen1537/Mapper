@@ -112,6 +112,7 @@ public class LiteTile implements Tile {
 	public Long getImageId() {
 		return imageId;
 	}
+
 	@Override
 	public Picture getImageEntity() {
 		Picture image = this.image.get();
@@ -124,6 +125,10 @@ public class LiteTile implements Tile {
 			return image;
 		}
 		return image;
+	}
+	@Override
+	public void setImageEntity(Picture picture) {
+		this.image = new SoftReference<>(picture);
 	}
 
 	@Override

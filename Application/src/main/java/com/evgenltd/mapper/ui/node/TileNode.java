@@ -2,6 +2,7 @@ package com.evgenltd.mapper.ui.node;
 
 import com.evgenltd.mapper.core.Context;
 import com.evgenltd.mapper.core.bean.SettingsBean;
+import com.evgenltd.mapper.core.entity.Picture;
 import com.evgenltd.mapper.core.entity.Tile;
 import com.evgenltd.mapper.core.util.Constants;
 import com.evgenltd.mapper.core.util.Utils;
@@ -11,6 +12,7 @@ import com.evgenltd.mapper.mapviewer.common.ZLevel;
 import com.evgenltd.mapper.ui.util.Geometry;
 import javafx.geometry.Point2D;
 import math.geom2d.polygon.Rectangle2D;
+import org.hibernate.Hibernate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -65,8 +67,12 @@ class TileNode extends Node {
 
 	@Override
 	public void paint(PaintContext context) {
+		final Picture picture = tile.getImageEntity();
+		if (!Hibernate.isInitialized(picture)) {
+			return;
+		}
 		context.image(
-				tile.getImage(),
+				picture.getImage(),
 				getWorldX(),
 				getWorldY()
 		);

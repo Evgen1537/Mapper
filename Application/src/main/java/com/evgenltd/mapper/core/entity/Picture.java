@@ -1,5 +1,7 @@
 package com.evgenltd.mapper.core.entity;
 
+import javafx.scene.image.Image;
+
 /**
  * Project: mapper
  * Author:  Evgeniy Lebedev
@@ -10,7 +12,7 @@ public interface Picture extends Identified {
 
 	void setContent(byte[] content);
 
-	javafx.scene.image.Image getImage();
+	Image getImage();
 
-	void setImage(javafx.scene.image.Image image);
+	void setImage(Image image);
 }

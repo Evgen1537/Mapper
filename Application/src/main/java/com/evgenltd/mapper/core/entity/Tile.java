@@ -31,7 +31,9 @@ public interface Tile {
 	byte[] getContent();
 
 	Long getImageId();
+
 	Picture getImageEntity();
+	void setImageEntity(Picture picture);
 
 	Image getImage();
 	void setImage(Image image);

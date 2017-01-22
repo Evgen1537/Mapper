@@ -9,6 +9,7 @@ import com.evgenltd.mapper.ui.screen.LayerBrowser;
 import com.evgenltd.mapper.ui.screen.MarkerBrowser;
 import com.evgenltd.mapper.ui.screen.dock.DockPane;
 import com.evgenltd.mapper.ui.screen.main.toolbar.Toolbar;
+import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.StatusBar;
 
@@ -39,6 +40,7 @@ public class Main extends AbstractScreen {
 		dockPane.dockRight(null, "Marker", this::markerBrowserBuilder);
 		dockPane.dockBottom(null, "Event Log", this::eventLogBuilder, UIContext.get().getEventLog());
 
+		memoryUsage.setPadding(new Insets(0,4,0,0));
 		statusBar.getLeftItems().addAll(memoryUsage);
 
 		final BorderPane body = new BorderPane();

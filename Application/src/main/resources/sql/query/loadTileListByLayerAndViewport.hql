@@ -1,5 +1,4 @@
 select t from Tile t
-left join fetch t.image
 where
 t.layer.id = :layerId
 and t.x + t.layer.x >= :x1 and t.x + t.layer.x <= :x2

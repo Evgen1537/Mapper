@@ -7,8 +7,10 @@ import com.evgenltd.mapper.core.util.DataBaseBackup;
 import com.evgenltd.mapper.ui.screen.main.Main;
 import com.evgenltd.mapper.ui.util.UIExceptionHandler;
 import com.evgenltd.mapper.ui.util.UpdateChecker;
+import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -16,7 +18,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * Author:  Evgeniy
  * Created: 12-06-2016 23:52
  */
-public class Application extends javafx.application.Application {
+public class Mapper extends Application {
 
 	public static void main(String[] args)	{
 		System.setProperty("javafx.preloader", Launcher.class.getName());
@@ -71,12 +73,8 @@ public class Application extends javafx.application.Application {
 
 	@Override
 	public void stop() throws Exception {
-		Context.get().getCoreExecutor().shutdownNow();
-		Context.get().getSpringScheduler().shutdown();
-		UIContext
-				.get()
-				.getMapViewerWrapper()
-				.stop();
+		UIContext.get().close();
+		Context.get().close();
 	}
 
 	private void addAppIcons(final Stage stage, final String... paths)	{

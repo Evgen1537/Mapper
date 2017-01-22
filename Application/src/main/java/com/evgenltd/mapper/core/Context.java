@@ -4,6 +4,7 @@ import com.evgenltd.mapper.core.bean.*;
 import com.evgenltd.mapper.core.bean.envers.EnversBean;
 import com.evgenltd.mapper.core.util.RollbarWrapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import java.util.concurrent.ExecutorService;
@@ -45,6 +46,11 @@ public class Context {
 
 	public static Context get() {
 		return instance;
+	}
+
+	public void close() {
+		coreExecutor.shutdownNow();
+		((ConfigurableApplicationContext) context).close();
 	}
 
 	// spring context
