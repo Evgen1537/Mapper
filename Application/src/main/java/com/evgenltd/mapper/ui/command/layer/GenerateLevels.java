@@ -66,6 +66,8 @@ public class GenerateLevels extends Command {
 					);
 				}
 
+				Context.get().getImageCache().cleanCache();
+
 				return null;
 			}
 		};

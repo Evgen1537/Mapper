@@ -68,6 +68,8 @@ public class RefreshLayer extends Command {
 
 				}
 
+				Context.get().getImageCache().cleanCache();
+
 				return null;
 			}
 		};

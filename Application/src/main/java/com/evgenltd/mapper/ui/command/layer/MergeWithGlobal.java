@@ -68,6 +68,8 @@ public class MergeWithGlobal extends Command {
 								this::updateProgress
 						);
 
+				Context.get().getImageCache().cleanCache();
+
 				return null;
 			}
 		};

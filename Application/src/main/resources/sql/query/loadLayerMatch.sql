@@ -9,7 +9,8 @@ where
 	    ft.layer_id = :firstLayerId  and ft.z = 'Z1'
 	and st.layer_id = :secondLayerId and st.z = 'Z1'
 	and ft.hash not in (
-	    '27166B2B1B679C54E00649A56A574BEB'
+	    '27166B2B1B679C54E00649A56A574BEB',
+	    '75DB3AADBD54DE5A3A40AB44800B7697'
 	)
 group by
 	ft.layer_id,

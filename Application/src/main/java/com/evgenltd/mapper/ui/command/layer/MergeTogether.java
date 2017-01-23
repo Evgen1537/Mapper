@@ -65,6 +65,8 @@ public class MergeTogether extends Command{
 								this::updateProgress
 						);
 
+				Context.get().getImageCache().cleanCache();
+
 				return null;
 			}
 		};

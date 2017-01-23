@@ -56,6 +56,8 @@ public class GenerateLevels extends Command {
 						this::updateProgress
 				);
 
+				Context.get().getImageCache().cleanCache();
+
 				return null;
 			}
 		};

@@ -58,6 +58,8 @@ public class AddManyLayersFromFileSystem extends Command {
 						this::updateProgress
 				);
 
+				Context.get().getImageCache().cleanCache();
+
 				return null;
 			}
 		};
