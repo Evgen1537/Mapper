@@ -6,8 +6,9 @@ import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.Marker;
 import com.evgenltd.mapper.core.entity.MarkerIcon;
 import com.evgenltd.mapper.core.entity.impl.EntityFactory;
+import com.evgenltd.mapper.core.util.Constants;
 import com.evgenltd.mapper.ui.UIContext;
-import com.evgenltd.mapper.ui.cellfactory.OptionalLayerListCell;
+import com.evgenltd.mapper.ui.cellfactory.LayerListCell;
 import com.evgenltd.mapper.ui.component.command.CommandManager;
 import com.evgenltd.mapper.ui.component.markerediting.MarkerEditing;
 import com.evgenltd.mapper.ui.screen.AbstractScreen;
@@ -21,8 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 /**
  * Project: Mapper
@@ -36,8 +36,8 @@ public class MarkerEditingTab extends AbstractScreen {
 	@FXML private TextField substance;
 	@FXML private TextField vitality;
 
-	@FXML private ComboBox<Optional<Layer>> layer;
-	@FXML private ComboBox<Optional<Layer>> exit;
+	@FXML private ComboBox<Layer> layer;
+	@FXML private ComboBox<Layer> exit;
 	@FXML private Button exitClear;
 
 	@FXML private TextArea comment;
@@ -53,7 +53,7 @@ public class MarkerEditingTab extends AbstractScreen {
 	private final MarkerEditing markerEditing = UIContext.get().getMarkerEditing();
 
 	private Marker marker;
-	private List<Optional<Layer>> layerList;
+	private List<Layer> layerList;
 
 	public MarkerEditingTab()	{
 		configureCommandButtons();
@@ -92,18 +92,18 @@ public class MarkerEditingTab extends AbstractScreen {
 	}
 
 	private void initLayerComboBox()	{
-		layer.setButtonCell(new OptionalLayerListCell(true));
-		layer.setCellFactory(param -> new OptionalLayerListCell(false));
-		exit.setButtonCell(new OptionalLayerListCell(true));
-		exit.setCellFactory(param -> new OptionalLayerListCell(false));
+		layer.setButtonCell(new LayerListCell(true));
+		layer.setCellFactory(param -> new LayerListCell(false));
+		exit.setButtonCell(new LayerListCell(true));
+		exit.setCellFactory(param -> new LayerListCell(false));
 	}
 
 	private void initBindings()	{
 		essence.textProperty().addListener(param -> marker.setEssence(essence.getText()));
 		substance.textProperty().addListener(param -> marker.setSubstance(substance.getText()));
 		vitality.textProperty().addListener(param -> marker.setVitality(vitality.getText()));
-		layer.getSelectionModel().selectedItemProperty().addListener(param -> marker.setLayer(layer.getSelectionModel().getSelectedItem().orElse(null)));
-		exit.getSelectionModel().selectedItemProperty().addListener(param -> marker.setExit(exit.getSelectionModel().getSelectedItem().orElse(null)));
+		layer.getSelectionModel().selectedItemProperty().addListener(param -> handleLayerSelection(layer, marker::setLayer));
+		exit.getSelectionModel().selectedItemProperty().addListener(param -> handleLayerSelection(exit, marker::setExit));
 		comment.textProperty().addListener(param -> marker.setComment(comment.getText()));
 	}
 
@@ -121,8 +121,8 @@ public class MarkerEditingTab extends AbstractScreen {
 		essence.setText("");
 		substance.setText("");
 		vitality.setText("");
-		layer.getSelectionModel().select(Optional.empty());
-		exit.getSelectionModel().select(Optional.empty());
+		layer.getSelectionModel().select(Constants.NONE);
+		exit.getSelectionModel().select(Constants.NONE);
 		comment.setText("");
 	}
 
@@ -135,20 +135,16 @@ public class MarkerEditingTab extends AbstractScreen {
 
 	private void loadData()	{
 		this.marker = markerEditing.getMarker();
-		layerList = loader
-				.loadAllLayerList()
-				.stream()
-				.map(Optional::of)
-				.collect(Collectors.toList());
-		layerList.add(0,Optional.empty());
+		layerList = loader.loadAllLayerList();
+		layerList.add(0,Constants.NONE);
 		fillUI();
 	}
 
 	private void fillUI()	{
 		initMarkerIconMenu();
 
-		layer.getItems().addAll(layerList);
-		exit.getItems().addAll(layerList);
+		layer.getItems().setAll(layerList);
+		exit.getItems().setAll(layerList);
 
 		if(marker.getType().isArea()) {
 			final Image markerIconImage = marker.getMarkerIcon().getImage().getImage();
@@ -179,26 +175,39 @@ public class MarkerEditingTab extends AbstractScreen {
 	}
 
 	@FXML
+	@SuppressWarnings("unused")
 	private void handleLayerClear(ActionEvent event) {
-		layer.getSelectionModel().select(Optional.empty());
+		layer.getSelectionModel().select(Constants.NONE);
 	}
 
 	@FXML
+	@SuppressWarnings("unused")
 	private void handlerExitClear(ActionEvent event) {
-		exit.getSelectionModel().select(Optional.empty());
+		exit.getSelectionModel().select(Constants.NONE);
 	}
 
-	private static void selectLayerById(@NotNull final ComboBox<Optional<Layer>> layerComboBox, @NotNull final Long id)	{
+	private static void selectLayerById(@NotNull final ComboBox<Layer> layerComboBox, @NotNull final Long id)	{
 
-		final Optional<Layer> layerForSelection = layerComboBox
+		final Layer layerForSelection = layerComboBox
 				.getItems()
 				.stream()
-				.filter(layer -> layer.isPresent()
-						&& Objects.equals(layer.get().getId(), id))
+				.filter(layer -> Objects.equals(layer.getId(), id))
 				.findFirst()
-				.orElse(Optional.empty());
+				.orElse(Constants.NONE);
 
 		layerComboBox.getSelectionModel().select(layerForSelection);
+
+	}
+
+	private void handleLayerSelection(@NotNull final ComboBox<Layer> layerComboBox, @NotNull final Consumer<Layer> setter) {
+
+		final Layer selectedLayer = layerComboBox.getSelectionModel().getSelectedItem();
+		if (Objects.equals(selectedLayer, Constants.NONE)) {
+			setter.accept(null);
+			return;
+		}
+
+		setter.accept(selectedLayer);
 
 	}
 }

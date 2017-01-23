@@ -1,5 +1,7 @@
 package com.evgenltd.mapper.core.util;
 
+import com.evgenltd.mapper.core.entity.Layer;
+import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import math.geom2d.Point2D;
 
 /**
@@ -34,4 +36,9 @@ public class Constants {
 	public static final String MARKER_ICON_NAME_WATER = "Water";
 
 	public static final Point2D ZERO_POINT = new Point2D(0,0);
+
+	public static final Layer NONE = EntityFactory.createLayer();
+	static {
+		NONE.setName("None");
+	}
 }

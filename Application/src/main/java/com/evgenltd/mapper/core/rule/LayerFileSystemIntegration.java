@@ -129,6 +129,19 @@ public class LayerFileSystemIntegration {
 
 	}
 
+	public static boolean checkSessionPathNoThrow(final File sessionFolder) {
+		if(!sessionFolder.exists()) {
+			return false;
+		}
+		if(!sessionFolder.isDirectory()) {
+			return false;
+		}
+		if(sessionFolder.list().length == 0) {
+			return false;
+		}
+		return true;
+	}
+
 	public static void exportLayerToFolder(
 			final File destination,
 			final Layer layer,

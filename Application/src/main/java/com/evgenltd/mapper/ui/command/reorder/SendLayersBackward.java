@@ -25,7 +25,7 @@ import java.util.List;
 		text = "Send backward",
 		longText = "Send selected layers backward",
 		graphic = "/image/layers-arrange-back.png",
-		accelerator = "Page ReorderDown",
+		accelerator = "Page Down",
 		path = "/Layer",
 		position = 15
 )

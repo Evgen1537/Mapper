@@ -3,6 +3,7 @@ package com.evgenltd.mapper.ui;
 import com.evgenltd.mapper.core.Context;
 import com.evgenltd.mapper.ui.component.command.CommandManager;
 import com.evgenltd.mapper.ui.component.eventlog.EventLog;
+import com.evgenltd.mapper.ui.component.globalmap.GlobalMapModel;
 import com.evgenltd.mapper.ui.component.mapviewer.MapViewerWrapper;
 import com.evgenltd.mapper.ui.component.markerediting.MarkerEditing;
 import com.evgenltd.mapper.ui.component.selectiondispatcher.SelectionDispatcher;
@@ -51,6 +52,7 @@ public class UIContext {
 	private EventLog eventLog;
 	private SelectionDispatcher selectionDispatcher;
 	private MarkerEditing markerEditing;
+	private GlobalMapModel globalMapModel;
 
 	private boolean debugMode;
 	private final Map<String,String> debugInfo = new HashMap<>();
@@ -102,10 +104,10 @@ public class UIContext {
 
 	public void submit(@NotNull final String commandId, @NotNull final Task<?> task)	{
 		final Task<?> taskInProgress = taskList.remove(commandId);
-		if(taskInProgress != null)	{
+		if (taskInProgress != null)	{
 			taskInProgress.cancel();
 		}
-		taskList.put(commandId,task);
+		taskList.put(commandId, task);
 		task.stateProperty().addListener(observable -> taskMaintenance(task));
 		Context.get().getCoreExecutor().execute(task);
 	}
@@ -115,9 +117,7 @@ public class UIContext {
 	}
 
 	public void addTaskListChangedListener(@NotNull final Runnable runnable)	{
-		taskList.addListener((InvalidationListener)observable -> {
-			runnable.run();
-		});
+		taskList.addListener((InvalidationListener)observable -> runnable.run());
 	}
 
 	private void taskMaintenance(final Task<?> task)	{
@@ -212,4 +212,10 @@ public class UIContext {
 		return markerEditing;
 	}
 
+	public GlobalMapModel getGlobalMapModel() {
+		if (globalMapModel == null) {
+			globalMapModel = new GlobalMapModel();
+		}
+		return globalMapModel;
+	}
 }

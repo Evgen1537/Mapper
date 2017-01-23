@@ -6,7 +6,7 @@ import com.evgenltd.mapper.core.bean.TrackerBean;
 import com.evgenltd.mapper.core.entity.Layer;
 import com.evgenltd.mapper.core.entity.dto.LayerDto;
 import com.evgenltd.mapper.ui.UIContext;
-import com.evgenltd.mapper.ui.cellfactory.LayerListCell;
+import com.evgenltd.mapper.ui.cellfactory.LayerDtoListCell;
 import com.evgenltd.mapper.ui.component.command.CommandManager;
 import com.evgenltd.mapper.ui.component.mapviewer.MapViewerWrapper;
 import com.evgenltd.mapper.ui.component.selectiondispatcher.AgentItemImpl;
@@ -74,7 +74,7 @@ public class LayerBrowser extends AbstractScreen implements SelectionDispatcher.
 		content.setPadding(new Insets(4));
 		setRoot(content);
 
-		layerList.setCellFactory(param -> new LayerListCell(layer -> trackerBean.isLayerCurrent(layer.getId())));
+		layerList.setCellFactory(param -> new LayerDtoListCell(layer -> trackerBean.isLayerCurrent(layer.getId())));
 		layerList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		layerList.setContextMenu(buildContextMenu());
 	}

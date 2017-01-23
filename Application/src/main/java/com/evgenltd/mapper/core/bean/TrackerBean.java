@@ -4,6 +4,7 @@ import com.evgenltd.mapper.core.entity.FolderEntry;
 import com.evgenltd.mapper.core.entity.impl.EntityFactory;
 import com.evgenltd.mapper.core.enums.FolderState;
 import com.evgenltd.mapper.core.exception.TrackerException;
+import com.evgenltd.mapper.core.rule.LayerFileSystemIntegration;
 import com.evgenltd.mapper.core.rule.LayerRefreshing;
 import com.evgenltd.mapper.core.util.Constants;
 import com.evgenltd.mapper.core.util.Utils;
@@ -228,6 +229,10 @@ public class TrackerBean extends AbstractBean {
 		}
 
 		if(!settingsBean.isAddNewLayers())	{
+			return;
+		}
+
+		if (!LayerFileSystemIntegration.checkSessionPathNoThrow(sessionFolder)) {
 			return;
 		}
 

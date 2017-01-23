@@ -43,6 +43,9 @@ public class UIConstants {
 	public static final Color SUBSTANCE_COLOR = Color.valueOf("#D0BC28");
 	public static final Color VITALITY_COLOR = Color.valueOf("#6B9025");
 
+	public static final Color STATUS_CORRECT = Color.valueOf("#21B232");
+	public static final Color STATUS_INCORRECT = Color.valueOf("#B11111");
+
 	// images
 
 	public static final Image MAP_ICON = new Image("/image/map.png");
@@ -66,6 +69,7 @@ public class UIConstants {
 	public static final Image SUBSTANCE = new Image("/image/substance.png");
 	public static final Image VITALITY = new Image("/image/vitality.png");
 	public static final Image TARGET = new Image("/image/target.png");
+	public static final Image TICK = new Image("/image/tick.png");
 
 	// command ids
 
@@ -128,4 +132,5 @@ public class UIConstants {
 	public static final String OPEN_SETTINGS_COMMAND = "OPEN_SETTINGS_COMMAND";
 	public static final String IMPORT = "IMPORT";
 	public static final String ABOUT = "ABOUT";
+	public static final String GLOBAL_MAP_INTEGRATION = "GLOBAL_MAP_INTEGRATION";
 }

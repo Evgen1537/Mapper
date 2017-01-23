@@ -3,6 +3,8 @@ package com.evgenltd.mapper.ui.util;
 import com.evgenltd.mapper.core.Context;
 import com.evgenltd.mapper.core.bean.SettingsBean;
 import com.evgenltd.mapper.mapviewer.common.PaintContext;
+import com.evgenltd.mapper.ui.component.eventlog.Message;
+import com.evgenltd.mapper.ui.component.eventlog.MessageType;
 import com.sun.javafx.tk.Toolkit;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Service;
@@ -10,10 +12,12 @@ import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -32,6 +36,37 @@ import java.util.function.Supplier;
 public class UIUtils {
 
 	// instant dialogs
+
+	public static void showAlert(@NotNull final Alert.AlertType type, @NotNull final String title, @NotNull final String message) {
+
+		Message.ofType(toMessageType(type))
+				.title(title)
+				.text(message)
+				.publish();
+
+		final Alert alert = new Alert(type, message);
+		alert.setTitle(title);
+		final Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("/image/app_icon_16.png"));
+		stage.getIcons().add(new Image("/image/app_icon_32.png"));
+		stage.getIcons().add(new Image("/image/app_icon_64.png"));
+		stage.getIcons().add(new Image("/image/app_icon_128.png"));
+		alert.show();
+
+	}
+
+	private static MessageType toMessageType(@NotNull final Alert.AlertType type) {
+		switch (type) {
+			case INFORMATION:
+				return MessageType.INFORMATION;
+			case WARNING:
+				return MessageType.WARNING;
+			case ERROR:
+				return MessageType.ERROR;
+			default:
+				return MessageType.INFORMATION;
+		}
+	}
 
 	public static Optional<File> askDirectory()   {
 

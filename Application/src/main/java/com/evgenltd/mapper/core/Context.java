@@ -39,6 +39,7 @@ public class Context {
 	private ImporterBean importerBean;
 	private EnversBean enversBean;
 	private RollbarWrapper rollbarWrapper;
+	private GlobalMapBean globalMapBean;
 
 	// instantiation
 
@@ -157,5 +158,12 @@ public class Context {
 			rollbarWrapper = new RollbarWrapper();
 		}
 		return rollbarWrapper;
+	}
+
+	public GlobalMapBean getGlobalMapBean() {
+		if (globalMapBean == null) {
+			globalMapBean = context.getBean(GlobalMapBean.class);
+		}
+		return globalMapBean;
 	}
 }

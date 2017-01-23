@@ -21,6 +21,9 @@ public class Settings {
 	private boolean overwriteTiles;
 	private double partlyVisibilityAlpha = 0.5;
 	private boolean showMarkerQuality = true;
+	private boolean globalMapIntegrationEnabled = false;
+	private double globalMapOffsetX;
+	private double globalMapOffsetY;
 
 	// tracker
 	private boolean enableTracker;
@@ -65,6 +68,27 @@ public class Settings {
 	}
 	public void setShowMarkerQuality(boolean showMarkerQuality) {
 		this.showMarkerQuality = showMarkerQuality;
+	}
+
+	public boolean isGlobalMapIntegrationEnabled() {
+		return globalMapIntegrationEnabled;
+	}
+	public void setGlobalMapIntegrationEnabled(boolean globalMapIntegrationEnabled) {
+		this.globalMapIntegrationEnabled = globalMapIntegrationEnabled;
+	}
+
+	public double getGlobalMapOffsetX() {
+		return globalMapOffsetX;
+	}
+	public void setGlobalMapOffsetX(double globalMapOffsetX) {
+		this.globalMapOffsetX = globalMapOffsetX;
+	}
+
+	public double getGlobalMapOffsetY() {
+		return globalMapOffsetY;
+	}
+	public void setGlobalMapOffsetY(double globalMapOffsetY) {
+		this.globalMapOffsetY = globalMapOffsetY;
 	}
 
 	// tracker
@@ -225,6 +249,9 @@ public class Settings {
 		copy.smallSessionFolderSize = smallSessionFolderSize;
 		copy.trackPlayerPosition = trackPlayerPosition;
 		copy.playerPositionFile = playerPositionFile;
+		copy.globalMapIntegrationEnabled = globalMapIntegrationEnabled;
+		copy.globalMapOffsetX = globalMapOffsetX;
+		copy.globalMapOffsetY = globalMapOffsetY;
 		copy.setHotKeyMap(getHotKeyMap());
 		return copy;
 	}

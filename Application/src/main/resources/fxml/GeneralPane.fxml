@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox spacing="4.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.settings.GeneralPane">
+
+<VBox spacing="4.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.mapper.ui.screen.settings.GeneralPane">
    <children>
       <Label text="General">
          <font>
@@ -39,6 +47,27 @@
          </children>
       </HBox>
       <CheckBox fx:id="showMarkerQuality" mnemonicParsing="false" text="Show marker quality" />
+      <!--<HBox alignment="CENTER_LEFT" spacing="4.0">-->
+         <!--<children>-->
+            <!--<Label text="Global Map Integration" />-->
+            <!--<Separator HBox.hgrow="ALWAYS" />-->
+         <!--</children>-->
+         <!--<VBox.margin>-->
+            <!--<Insets />-->
+         <!--</VBox.margin>-->
+         <!--<padding>-->
+            <!--<Insets top="10.0" />-->
+         <!--</padding>-->
+      <!--</HBox>-->
+      <!--<HBox alignment="CENTER_LEFT">-->
+         <!--<children>-->
+            <!--<Label fx:id="globalMapStatus" prefWidth="150.0" text="Integration disabled" />-->
+            <!--<ProgressIndicator fx:id="globalMapLinkingIndicator" prefHeight="16.0" prefWidth="16.0" />-->
+            <!--<Hyperlink fx:id="globalMapStopLinking" onAction="#handleGlobalMapStopLinking" text="Stop" />-->
+            <!--<Hyperlink fx:id="globalMapReLink" onAction="#handleGlobalMapReLink" text="Link" />-->
+            <!--<Hyperlink fx:id="globalMapUnLink" onAction="#handleGlobalMapUnLink" text="Unlink" />-->
+         <!--</children>-->
+      <!--</HBox>-->
    </children>
    <padding>
       <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />

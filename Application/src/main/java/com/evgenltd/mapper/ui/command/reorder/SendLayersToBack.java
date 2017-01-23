@@ -25,7 +25,7 @@ import java.util.List;
 		text = "Send to back",
 		longText = "Send selected layers to back",
 		graphic = "/image/layers-stack-arrange-back.png",
-		accelerator = "Ctrl+Page ReorderDown",
+		accelerator = "Ctrl+Page Down",
 		path = "/Layer",
 		position = 13
 )

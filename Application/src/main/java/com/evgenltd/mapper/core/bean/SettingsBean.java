@@ -83,6 +83,27 @@ public class SettingsBean {
 		return settings.isShowMarkerQuality();
 	}
 
+	public boolean isGlobalMapIntegrationEnabled() {
+		return settings.isGlobalMapIntegrationEnabled();
+	}
+	public void setGlobalMapIntegrationEnabled(boolean globalMapIntegrationEnabled) {
+		settings.setGlobalMapIntegrationEnabled(globalMapIntegrationEnabled);
+	}
+
+	public double getGlobalMapOffsetX() {
+		return settings.getGlobalMapOffsetX();
+	}
+	public void setGlobalMapOffsetX(double globalMapOffsetX) {
+		settings.setGlobalMapOffsetX(globalMapOffsetX);
+	}
+
+	public double getGlobalMapOffsetY() {
+		return settings.getGlobalMapOffsetY();
+	}
+	public void setGlobalMapOffsetY(double globalMapOffsetY) {
+		settings.setGlobalMapOffsetY(globalMapOffsetY);
+	}
+
 	// tracker
 
 	public boolean isEnableTracker() {

@@ -3,7 +3,7 @@ package com.evgenltd.mapper.ui.screen;
 import com.evgenltd.mapper.core.Context;
 import com.evgenltd.mapper.core.entity.dto.LayerDto;
 import com.evgenltd.mapper.core.enums.LayerType;
-import com.evgenltd.mapper.ui.cellfactory.LayerListCell;
+import com.evgenltd.mapper.ui.cellfactory.LayerDtoListCell;
 import com.evgenltd.mapper.ui.util.UIConstants;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
@@ -31,7 +31,7 @@ public class LayerChooser extends DialogScreen<Long> {
 
 		setRoot(layerListView);
 		getDialog().getDialogPane().setContent(layerListView);
-		layerListView.setCellFactory(param -> new LayerListCell());
+		layerListView.setCellFactory(param -> new LayerDtoListCell());
 
 		allowedLayerTypes = layerTypes;
 		loadData();
