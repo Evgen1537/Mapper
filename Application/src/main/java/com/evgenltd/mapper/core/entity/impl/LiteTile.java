@@ -43,6 +43,8 @@ public class LiteTile implements Tile {
 
 	private String hash;
 
+	private Long gridId;
+
 	@Transient
 	private SoftReference<Picture> image = new SoftReference<>(null);
 
@@ -147,6 +149,15 @@ public class LiteTile implements Tile {
 	@Override
 	public void setHash(String hash) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Long getGridId() {
+		return gridId;
+	}
+	@Override
+	public void setGridId(Long gridId) {
+		this.gridId = gridId;
 	}
 
 	@Override

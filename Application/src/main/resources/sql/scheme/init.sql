@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS tiles (
 	y	REAL,
 	z	INTEGER,
 	hash TEXT,
+	gridId INTEGER,
 	layer_id	INTEGER,
 	image_id	INTEGER,
 	FOREIGN KEY(layer_id) REFERENCES layers (id),
@@ -85,6 +86,7 @@ CREATE TABLE IF NOT EXISTS tiles_AUD (
     y	REAL,
     z	INTEGER,
     hash TEXT,
+    gridId INTEGER,
     layer_id	INTEGER,
     image_id	INTEGER,
     primary key (id, REV)

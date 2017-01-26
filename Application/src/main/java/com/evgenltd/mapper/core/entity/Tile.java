@@ -41,6 +41,9 @@ public interface Tile {
 	String getHash();
 	void setHash(String hash);
 
+	Long getGridId();
+	void setGridId(Long gridId);
+
 	List<Point2D> getLowLevelTilePointList();
 	void setLowLevelTilePointList(List<Point2D> lowLevelTilePointList);
 }

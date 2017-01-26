@@ -55,6 +55,8 @@ public class TileImpl implements Tile {
 
 	private String hash;
 
+	private Long gridId;
+
 	@Transient
 	@NotAudited
 	private List<Point2D> lowLevelTilePointList;
@@ -139,6 +141,15 @@ public class TileImpl implements Tile {
 	@Override
 	public void setHash(String hash) {
 		this.hash = hash;
+	}
+
+	@Override
+	public Long getGridId() {
+		return gridId;
+	}
+	@Override
+	public void setGridId(Long gridId) {
+		this.gridId = gridId;
 	}
 
 	@Override

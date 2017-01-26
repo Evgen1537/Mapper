@@ -34,6 +34,8 @@ public class DatabaseBeanMaintenance extends AbstractBean {
 					executeUpdate("/sql/scheme/version12.sql",12L);
 				case 12:
 					executeUpdate("/sql/scheme/version13.sql",13L);
+				case 13:
+					executeUpdate("/sql/scheme/version14.sql", 14L);
 			}
 		}
 	}

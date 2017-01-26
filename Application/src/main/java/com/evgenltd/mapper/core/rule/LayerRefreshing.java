@@ -11,13 +11,14 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -93,6 +94,8 @@ public class LayerRefreshing {
 			return Collections.emptyList();
 		}
 
+		final Map<Point2D,Long> idsDescriptor = parseIdsDescriptor(sessionFolder);
+
 		long workDone = 1;
 		long workMax = sessionFolderContent.length;
 
@@ -110,7 +113,8 @@ public class LayerRefreshing {
 						layer,
 						isOverwrite,
 						tileProvider,
-						tilePersistent
+						tilePersistent,
+						idsDescriptor
 				).ifPresent(result::add);
 
 			}catch(Exception e) {
@@ -130,7 +134,8 @@ public class LayerRefreshing {
 			final Layer layer,
 			final boolean isOverwrite,
 			final Function<TileInfo,Optional<Tile>> tileProvider,
-			final Consumer<Tile> tilePersistent
+			final Consumer<Tile> tilePersistent,
+			final Map<Point2D,Long> idsDescriptor
 	)	{
 
 		final Optional<Point2D> pointHolder = Utils.parseTileName(tileFile.getName());
@@ -149,6 +154,7 @@ public class LayerRefreshing {
 
 		final Image image = new Image("file:"+tileFile);
 		final String hash = Utils.calculateHash(image);
+		final Long gridId = idsDescriptor.get(point);
 
 		tile.setX(point.getX());
 		tile.setY(point.getY());
@@ -156,6 +162,7 @@ public class LayerRefreshing {
 		tile.setLayer(layer);
 		tile.setImage(image);
 		tile.setHash(hash);
+		tile.setGridId(gridId);
 
 		tilePersistent.accept(tile);
 
@@ -176,5 +183,40 @@ public class LayerRefreshing {
 		);
 
 		return tileProvider.apply(tileInfo);
+	}
+
+	private static Map<Point2D, Long> parseIdsDescriptor(@NotNull final File sessionFolder) {
+
+		final File idsDescriptor = new File(sessionFolder, Constants.IDS_DESCRIPTOR);
+		if (!idsDescriptor.exists() || !idsDescriptor.isFile()) {
+			return Collections.emptyMap();
+		}
+
+		try {
+
+			final List<String> idsLines = Files.readAllLines(idsDescriptor.toPath());
+			final Map<Point2D, Long> pointToIdMap = new HashMap<>();
+
+			for (final String idsLine : idsLines) {
+
+				try {
+					final String[] parts = idsLine.split(",");
+					final Integer x = Integer.parseInt(parts[0]);
+					final Integer y = Integer.parseInt(parts[1]);
+					final Long gridId = Long.parseLong(parts[2]);
+					pointToIdMap.put(new Point2D(x,y), gridId);
+				}catch (NumberFormatException e) {
+					log.warn("Unable to parse ids entry [%s]", idsLine);
+				}
+
+			}
+
+			return pointToIdMap;
+
+		}catch (IOException e) {
+			log.warn("Unable to read ids descriptor, path=[%s]", idsDescriptor.toString());
+		}
+		return Collections.emptyMap();
+
 	}
 }

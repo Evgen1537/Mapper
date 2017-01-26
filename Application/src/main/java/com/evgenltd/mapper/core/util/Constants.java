@@ -20,6 +20,8 @@ public class Constants {
 	public static final double MIN_LEVEL = 1D;
 	public static final double MAX_LEVEL = 5D;
 
+	public static final String IDS_DESCRIPTOR = "ids.txt";
+
 	public static final long TRACKER_REMINDER_DELAY = 2000;
 	public static final long TRACKER_DEFAULT_SMALL_SESSION_FOLDER_SIZE = 10;
 	public static final String TRACKER_CURRENT_SESSION_FILE = "currentsession.js";
