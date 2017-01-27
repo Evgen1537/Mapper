@@ -9,15 +9,18 @@ import com.evgenltd.mapper.ui.component.markerediting.MarkerEditing;
 import com.evgenltd.mapper.ui.component.selectiondispatcher.SelectionDispatcher;
 import com.evgenltd.mapper.ui.screen.AbstractScreen;
 import com.evgenltd.mapper.ui.screen.dock.DockPane;
+import com.evgenltd.mapper.ui.screen.main.Main;
 import com.evgenltd.mapper.ui.screen.main.toolbar.Toolbar;
+import com.evgenltd.mapper.ui.util.UIExceptionHandler;
+import com.evgenltd.mapper.ui.util.UpdateChecker;
 import javafx.application.HostServices;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -34,16 +37,10 @@ import java.util.stream.Collectors;
 public class UIContext {
 	private static UIContext instance = new UIContext();
 
-	private static final Collection<Worker.State> WORKER_FINAL_STATE = Arrays.asList(
-			Worker.State.CANCELLED,
-			Worker.State.SUCCEEDED,
-			Worker.State.FAILED
-	);
-
 	private HostServices hostServices;
 	private Stage stage;
-	private Pane root;
 
+	private final Pane root = new StackPane();
 	private Toolbar toolbar;
 	private DockPane dockPane;
 
@@ -67,19 +64,57 @@ public class UIContext {
 		return instance;
 	}
 
-	// starting
+	// lifecycle
 
-	public void initializationDebugMode(@NotNull final Stage stage, @NotNull final HostServices hostServices)	{
+	public void initWithDebugMode(@NotNull final Stage stage, @NotNull final HostServices hostServices)	{
 		debugMode = true;
-		initialization(stage, hostServices);
+		init(stage, hostServices);
 	}
 
-	public void initialization(@NotNull final Stage stage, @NotNull final HostServices hostServices) {
+	public void init(@NotNull final Stage stage, @NotNull final HostServices hostServices) {
+
 		this.stage = stage;
 		this.hostServices = hostServices;
-		stage.setScene(new Scene(makeRoot(),800,600));
+
+		final Scene scene = new Scene(root,800,600);
+		scene.getStylesheets().addAll("/css/mapper.css", "/css/ribbon.css");
+
+		stage.setScene(scene);
+
 		getCommandManager().initCommands();
+
+		stage.setTitle(String.format(
+				"%s %s",
+				getClass().getPackage().getImplementationTitle(),
+				getClass().getPackage().getImplementationVersion()
+		));
+		stage.getIcons().add(new Image("/image/app_icon_16.png"));
+		stage.getIcons().add(new Image("/image/app_icon_32.png"));
+		stage.getIcons().add(new Image("/image/app_icon_64.png"));
+		stage.getIcons().add(new Image("/image/app_icon_128.png"));
+
+		stage.show();
+
+		Thread.currentThread().setUncaughtExceptionHandler(new UIExceptionHandler());
+
+		openScreen(new Main());
+
+		Context.get().getTrackerBean().setInvocationListener(() -> Platform.runLater(this::refresh));
+
+		UpdateChecker.of().checkWithNotification();
+
 	}
+
+	public void refresh()	{
+		mapViewerWrapper.refresh();
+		dockPane.refresh();
+	}
+
+	public void close() {
+		mapViewerWrapper.stop();
+	}
+
+	//
 
 	public Stage getStage() {
 		return stage;
@@ -87,11 +122,6 @@ public class UIContext {
 
 	public HostServices getHostServices() {
 		return hostServices;
-	}
-
-	private Parent makeRoot()	{
-		root = new StackPane();
-		return root;
 	}
 
 	// screens
@@ -134,17 +164,6 @@ public class UIContext {
 				.collect(Collectors.toList())
 				.forEach(taskList::remove);
 
-	}
-
-	//
-
-	public void refresh()	{
-		mapViewerWrapper.refresh();
-		dockPane.refresh();
-	}
-
-	public void close() {
-		mapViewerWrapper.stop();
 	}
 
 	//

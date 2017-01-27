@@ -51,18 +51,6 @@ public class Config {
 	}
 
 	@Bean
-	public ApplicationListener<ContextRefreshedEvent> applicationStartedListener(final DatabaseBeanMaintenance databaseBeanMaintenance)	{
-		return contextStartedEvent -> {
-			Context
-					.get()
-					.setSpringContext(contextStartedEvent.getApplicationContext());
-			((AbstractApplicationContext)Context.get().getSpringContext()).registerShutdownHook();
-			databaseBeanMaintenance.init();
-			databaseBeanMaintenance.processMaintenance();
-		};
-	}
-
-	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory()	{
 
 		final Map<String,Object> properties = new HashMap<>();

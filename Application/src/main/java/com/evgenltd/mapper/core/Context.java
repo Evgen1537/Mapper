@@ -5,6 +5,7 @@ import com.evgenltd.mapper.core.bean.envers.EnversBean;
 import com.evgenltd.mapper.core.util.RollbarWrapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import java.util.concurrent.ExecutorService;
@@ -18,7 +19,7 @@ import java.util.concurrent.Executors;
 public class Context {
 	private static Context instance = new Context();
 
-	private ApplicationContext context;
+	private AnnotationConfigApplicationContext context;
 
 	private Long threadCounter = 0L;
 	private final ExecutorService coreExecutor = Executors.newCachedThreadPool(r -> {
@@ -28,6 +29,7 @@ public class Context {
 	});
 
 	private SettingsBean settingsBean;
+	private DatabaseBeanMaintenance databaseBeanMaintenance;
 	private CommonDao commonDao;
 	private Loader loader;
 	private TileBean tileBean;
@@ -50,29 +52,24 @@ public class Context {
 		return instance;
 	}
 
+	// lifecycle
+
+	public void init() {
+		context = new AnnotationConfigApplicationContext(Config.class);
+		getDatabaseBeanMaintenance().init();
+		getDatabaseBeanMaintenance().processMaintenance();
+		getRollbar().logLaunch();
+	}
+
 	public void close() {
 		coreExecutor.shutdownNow();
-		((ConfigurableApplicationContext) context).close();
-	}
-
-	// spring context
-
-	public ApplicationContext getSpringContext() {
-		return context;
-	}
-
-	public void setSpringContext(ApplicationContext context) {
-		this.context = context;
+		context.close();
 	}
 
 	// executors
 
 	public ExecutorService getCoreExecutor() {
 		return coreExecutor;
-	}
-
-	public ThreadPoolTaskScheduler getSpringScheduler() {
-		return getSpringContext().getBean(ThreadPoolTaskScheduler.class);
 	}
 
 	// beans
@@ -82,6 +79,13 @@ public class Context {
 			settingsBean = context.getBean(SettingsBean.class);
 		}
 		return settingsBean;
+	}
+
+	public DatabaseBeanMaintenance getDatabaseBeanMaintenance() {
+		if (databaseBeanMaintenance == null) {
+			databaseBeanMaintenance = context.getBean(DatabaseBeanMaintenance.class);
+		}
+		return databaseBeanMaintenance;
 	}
 
 	public CommonDao getCommonDao() {

@@ -51,11 +51,12 @@ public class TrackerBean extends AbstractBean {
 	private Point2D currentLayerWorldPosition;
 	private Point2D playerPosition;
 
+	private Runnable invocationListener = () -> {};
 	private Consumer<Boolean> enableStateListener = state -> {};
 	private boolean trackedFolderInvalidated = false;
 	private Consumer<List<FolderEntry>> trackedFolderChangingListener = folderEntryList -> {};
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({"unused", "WeakerAccess"})
 	@Transactional
 	public void doTrackerWork() {
 
@@ -65,6 +66,7 @@ public class TrackerBean extends AbstractBean {
 
 		try {
 			doTrackerWorkImpl();
+			invocationListener.run();
 		}catch(TrackerException te)	{
 			settingsBean.setEnableTracker(false);
 			enableStateListener.accept(false);
@@ -203,6 +205,14 @@ public class TrackerBean extends AbstractBean {
 		return Objects.equals(layerId,currentLayerId);
 	}
 
+	public void setInvocationListener(@Nullable final Runnable invocationListener) {
+		if (invocationListener == null) {
+			this.invocationListener = () -> {};
+		} else {
+			this.invocationListener = invocationListener;
+		}
+	}
+
 	public void setEnableStateListener(@Nullable final Consumer<Boolean> enableStateListener) {
 		if(enableStateListener == null)	{
 			this.enableStateListener = state -> {};
@@ -339,6 +349,7 @@ public class TrackerBean extends AbstractBean {
 		}
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	private void removeSessionFolder(final File sessionFolder)	{
 		if(!Utils.checkDirectory(sessionFolder))	{
 			return;
@@ -449,7 +460,9 @@ public class TrackerBean extends AbstractBean {
 
 	}
 
+	@SuppressWarnings("unused")
 	private static void emptyMessageUpdater(final String message)	{}
 
+	@SuppressWarnings("unused")
 	private static void emptyProgressUpdater(final Long workDone, final Long workMax)	{}
 }

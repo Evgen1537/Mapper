@@ -1,17 +1,10 @@
 package com.evgenltd.mapper.ui;
 
-import com.evgenltd.mapper.core.Config;
 import com.evgenltd.mapper.core.Context;
 import com.evgenltd.mapper.core.util.Constants;
 import com.evgenltd.mapper.core.util.DataBaseBackup;
-import com.evgenltd.mapper.ui.screen.main.Main;
-import com.evgenltd.mapper.ui.util.UIExceptionHandler;
-import com.evgenltd.mapper.ui.util.UpdateChecker;
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Project: Mapper
@@ -28,65 +21,37 @@ public class Mapper extends Application {
 	@Override
 	public void init() throws Exception {
 
-		if(!hasParameter(Constants.SKIP_BACKUP_ON_STARTUP))	{
+		final boolean hasSkipBackupFlag = getParameters()
+				.getUnnamed()
+				.contains(Constants.SKIP_BACKUP_ON_STARTUP);
+
+		if(!hasSkipBackupFlag)	{
 			DataBaseBackup.doBackup();
 		}
 
-		final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+		Context.get().init();
 
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		if(hasParameter(Constants.DEBUG_MODE_FLAG))	{
-			UIContext.get().initializationDebugMode(primaryStage, getHostServices());
+		final boolean hasDebugModeFlag = getParameters()
+				.getUnnamed()
+				.contains(Constants.DEBUG_MODE_FLAG);
+
+		if(hasDebugModeFlag)	{
+			UIContext.get().initWithDebugMode(primaryStage, getHostServices());
 		}else {
-			UIContext.get().initialization(primaryStage, getHostServices());
+			UIContext.get().init(primaryStage, getHostServices());
 		}
 
-		primaryStage.setTitle(String.format(
-				"%s %s",
-				getClass().getPackage().getImplementationTitle(),
-				getClass().getPackage().getImplementationVersion()
-		));
-		addAppIcons(
-				primaryStage,
-				"/image/app_icon_16.png",
-				"/image/app_icon_32.png",
-				"/image/app_icon_64.png",
-				"/image/app_icon_128.png"
-		);
-
-		primaryStage.getScene().getStylesheets().addAll("/css/mapper.css", "/css/ribbon.css");
-
-		primaryStage.show();
-
-		Thread.currentThread().setUncaughtExceptionHandler(new UIExceptionHandler());
-
-		UIContext.get().openScreen(new Main());
-
-		Context.get().getRollbar().logLaunch();
-
-		UpdateChecker.of().checkWithNotification();
 	}
 
 	@Override
 	public void stop() throws Exception {
 		UIContext.get().close();
 		Context.get().close();
-	}
-
-	private void addAppIcons(final Stage stage, final String... paths)	{
-		for(String path : paths) {
-			stage.getIcons().add(new Image(path));
-		}
-	}
-
-	private boolean hasParameter(final String parameterName)	{
-		return getParameters()
-				.getUnnamed()
-				.contains(parameterName);
 	}
 
 }
