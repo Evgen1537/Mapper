@@ -17,6 +17,7 @@
     <modules>
         <module>MapViewer</module>
         <module>Application</module>
+        <module>Extractor</module>
     </modules>
 
     <dependencies>
