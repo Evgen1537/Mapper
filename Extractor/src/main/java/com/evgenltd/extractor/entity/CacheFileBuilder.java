@@ -22,6 +22,8 @@ import java.util.function.BiConsumer;
  */
 public class CacheFileBuilder {
 
+
+
 	public static CacheFile buildWithDetails(@NotNull final CacheFile cacheFile) {
 
 		final String name = cacheFile.getName();

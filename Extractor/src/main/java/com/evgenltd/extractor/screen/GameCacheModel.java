@@ -2,9 +2,19 @@ package com.evgenltd.extractor.screen;
 
 import com.evgenltd.extractor.Constants;
 import com.evgenltd.extractor.Extractor;
+import com.evgenltd.extractor.HafenCache;
 import com.evgenltd.extractor.entity.CacheFile;
 import com.evgenltd.extractor.entity.CacheFileBuilder;
+import haven.Resource;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
+import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -22,15 +32,30 @@ import java.util.stream.Collectors;
  */
 public class GameCacheModel {
 
-	private File cacheFolder;
+	private StringProperty quickSearch = new SimpleStringProperty();
+	public String getQuickSearch() {
+		return quickSearch.get();
+	}
+	public StringProperty quickSearchProperty() {
+		return quickSearch;
+	}
+	public void setQuickSearch(String quickSearch) {
+		this.quickSearch.set(quickSearch);
+	}
+
+	private ObservableList<CacheFile> dataList = FXCollections.observableArrayList();
+	private FilteredList<CacheFile> filteredDataList = new FilteredList<>(dataList);
+	public FilteredList<CacheFile> getFilteredDataList() {
+		return filteredDataList;
+	}
+
+	private HafenCache hafenCache = new HafenCache();
 	private Task<List<CacheFile>> cachedFilesLoader;
 
 	// lifecycle
 
 	public void init() {
-		cacheFolder = new File(System.getenv("APPDATA")
-									   + File.separator + "Haven and Hearth"
-									   + File.separator + "data");
+		quickSearchProperty().addListener(observable -> filteredDataList.setPredicate(cacheFile -> cacheFile.getName().startsWith(getQuickSearch())));
 	}
 
 	public void destroy() {
@@ -40,7 +65,7 @@ public class GameCacheModel {
 	//
 
 	@SuppressWarnings("ConstantConditions")
-	public void loadCachedFiles(@NotNull final Consumer<List<CacheFile>> resultCallback) {
+	public void loadCachedFiles(@NotNull final Runnable onComplete) {
 
 		if (cachedFilesLoader != null) {
 			cachedFilesLoader.cancel();
@@ -49,42 +74,41 @@ public class GameCacheModel {
 		cachedFilesLoader = new Task<List<CacheFile>>() {
 			@Override
 			protected List<CacheFile> call() throws Exception {
-
-				final boolean isSkip = !cacheFolder.exists() || !cacheFolder.isDirectory();
-				if (isSkip) {
-					return Collections.emptyList();
-				}
-
-				return Arrays.stream(cacheFolder.listFiles(GameCacheModel.this::cacheFileFilter))
-						.map(CacheFileBuilder::buildCacheFileHeader)
-//						.filter(cacheFile -> cacheFile.getName().startsWith("map"))
-						.sorted(Constants.CACHE_FILE_COMPARATOR)
-						.collect(Collectors.toList());
-
+				return hafenCache.loadCacheFileList();
 			}
 
 			@Override
 			protected void succeeded() {
-				resultCallback.accept(getValue());
+				dataList.setAll(getValue());
+				onComplete.run();
 			}
 
 			@Override
 			protected void cancelled() {
-				resultCallback.accept(Collections.emptyList());
+				dataList.setAll(Collections.emptyList());
+				onComplete.run();
 			}
 
 			@Override
 			protected void failed() {
+				// todo add alert
 				getException().printStackTrace();
-				resultCallback.accept(Collections.emptyList());
+				dataList.setAll(Collections.emptyList());
+				onComplete.run();
 			}
 		};
 		Extractor.EXECUTOR_SERVICE.submit(cachedFilesLoader);
 
 	}
 
-	private boolean cacheFileFilter(@NotNull final File file) {
-		return file.getName().matches(Constants.CACHE_FILE_NAME_PATTERN);
+	public Image loadImageResource(@NotNull final CacheFile cacheFile) {
+		try {
+			final String resourceName = cacheFile.getName();
+			final Resource resource = hafenCache.loadResource(resourceName);
+			return hafenCache.extractImage(resource);
+		}catch (Exception e) {
+			return null;
+		}
 	}
 
 }

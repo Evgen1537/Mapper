@@ -2,6 +2,7 @@ package com.evgenltd.mapper.core.bean;
 
 import com.evgenltd.mapper.core.entity.*;
 import com.evgenltd.mapper.core.entity.dto.LayerDto;
+import com.evgenltd.mapper.core.entity.impl.LayerImpl;
 import com.evgenltd.mapper.core.entity.impl.LiteTile;
 import com.evgenltd.mapper.core.entity.impl.PictureImpl;
 import com.evgenltd.mapper.core.enums.LayerType;
@@ -118,13 +119,8 @@ public class LoaderBean extends AbstractBean implements Loader,TileProvider	{
 	}
 
 	@Override
-	public List<LayerDto> loadSessionLayerList()	{
-		return loadLayerDtoListByTypes(LayerType.SESSION);
-	}
-
-	@Override
-	public List<LayerDto> loadGlobalLayerList()	{
-		return loadLayerDtoListByTypes(LayerType.GROUND, LayerType.CAVE);
+	public List<LayerDto> loadAllLayerDtoList()	{
+		return loadLayerDtoListByTypes(LayerType.values());
 	}
 
 	@Override
@@ -135,6 +131,11 @@ public class LoaderBean extends AbstractBean implements Loader,TileProvider	{
 				.setParameter("layerTypes", layerTypes)
 				.getResultList();
 
+	}
+
+	@Override
+	public Layer loadLayer(Long id) {
+		return getEntityManager().find(LayerImpl.class, id);
 	}
 
 	@Override

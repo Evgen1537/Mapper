@@ -48,6 +48,11 @@ public class UIConstants {
 
 	// images
 
+	public static final Image APP_ICON_16 = new Image("/image/app_icon_16.png");
+	public static final Image APP_ICON_32 = new Image("/image/app_icon_32.png");
+	public static final Image APP_ICON_64 = new Image("/image/app_icon_64.png");
+	public static final Image APP_ICON_128 = new Image("/image/app_icon_128.png");
+
 	public static final Image MAP_ICON = new Image("/image/map.png");
 	public static final Image CAVE_ICON = new Image("/image/cave.png");
 	public static final Image HOME_ICON = new Image("/image/home.png");
@@ -79,22 +84,13 @@ public class UIConstants {
 	public static final String REFRESH_LAYER = "REFRESH_LAYER";
 	public static final String FIND_MATCHES = "FIND_MATCHES";
 	public static final String EXPORT_LAYER_TO_FOLDER = "EXPORT_LAYER_TO_FOLDER";
-
-	public static final String MERGE_WITH_GLOBAL = "MERGE_WITH_GLOBAL";
 	public static final String MERGE_TOGETHER = "MERGE_TOGETHER";
+	public static final String PROPERTIES = "PROPERTIES";
 
 	public static final String BRING_LAYERS_TO_FRONT = "BRING_LAYERS_TO_FRONT";
 	public static final String SEND_LAYERS_TO_BACK = "SEND_LAYERS_TO_BACK";
 	public static final String BRING_LAYERS_FORWARD = "BRING_LAYERS_FORWARD";
 	public static final String SEND_LAYERS_BACKWARD = "SEND_LAYERS_BACKWARD";
-
-	public static final String GLOBAL_LAYER_GENERATE_LEVELS = "GLOBAL_LAYER_GENERATE_LEVELS";
-	public static final String GLOBAL_LAYER_UP = "GLOBAL_LAYER_UP";
-	public static final String GLOBAL_LAYER_DOWN = "GLOBAL_LAYER_DOWN";
-	public static final String GLOBAL_LAYER_FULL = "GLOBAL_LAYER_FULL";
-	public static final String GLOBAL_LAYER_PARTLY = "GLOBAL_LAYER_PARTLY";
-	public static final String GLOBAL_LAYER_NONE = "GLOBAL_LAYER_NONE";
-	public static final String GLOBAL_EXPORT_LAYER_TO_FOLDER = "GLOBAL_EXPORT_LAYER_TO_FOLDER";
 
 	public static final String MARKER_ADD_POINT = "MARKER_ADD_POINT";
 	public static final String MARKER_ADD_AREA = "MARKER_ADD_AREA";

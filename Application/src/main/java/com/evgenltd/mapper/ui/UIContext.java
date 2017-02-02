@@ -11,6 +11,7 @@ import com.evgenltd.mapper.ui.screen.AbstractScreen;
 import com.evgenltd.mapper.ui.screen.dock.DockPane;
 import com.evgenltd.mapper.ui.screen.main.Main;
 import com.evgenltd.mapper.ui.screen.main.toolbar.Toolbar;
+import com.evgenltd.mapper.ui.util.UIConstants;
 import com.evgenltd.mapper.ui.util.UIExceptionHandler;
 import com.evgenltd.mapper.ui.util.UpdateChecker;
 import javafx.application.HostServices;
@@ -88,10 +89,10 @@ public class UIContext {
 				getClass().getPackage().getImplementationTitle(),
 				getClass().getPackage().getImplementationVersion()
 		));
-		stage.getIcons().add(new Image("/image/app_icon_16.png"));
-		stage.getIcons().add(new Image("/image/app_icon_32.png"));
-		stage.getIcons().add(new Image("/image/app_icon_64.png"));
-		stage.getIcons().add(new Image("/image/app_icon_128.png"));
+		stage.getIcons().add(UIConstants.APP_ICON_16);
+		stage.getIcons().add(UIConstants.APP_ICON_32);
+		stage.getIcons().add(UIConstants.APP_ICON_64);
+		stage.getIcons().add(UIConstants.APP_ICON_128);
 
 		stage.show();
 

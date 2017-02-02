@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS layers (
 	y	REAL,
 	visibility	TEXT,
 	order_number integer,
-	session_path text
+	session_path text,
+	preventRemove integer
 );
 
 CREATE TABLE IF NOT EXISTS marker_icons (
@@ -75,6 +76,7 @@ CREATE TABLE IF NOT EXISTS layers_AUD (
     visibility text,
     x real,
     y real,
+    preventRemove integer,
     primary key (id, REV)
 );
 

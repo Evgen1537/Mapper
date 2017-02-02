@@ -21,7 +21,7 @@ import java.util.List;
 		id = UIConstants.MERGE_TOGETHER,
 		text = "Merge together",
 		longText = "Merge layers and markers with in new session layer",
-		graphic = "/image/arrow-join.png",
+		graphic = "/image/arrow-merge-090.png",
 		accelerator = "Ctrl+J",
 		path = "/Layer",
 		position = 4

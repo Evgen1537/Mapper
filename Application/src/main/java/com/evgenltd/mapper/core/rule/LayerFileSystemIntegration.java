@@ -74,6 +74,7 @@ public class LayerFileSystemIntegration {
 			final Function<TileInfo, Optional<Tile>> tileProvider,
 			final Consumer<Layer> layerPersistent,
 			final Consumer<Tile> tilePersistent,
+			final Consumer<String> titleUpdater,
 			final Consumer<String> messageUpdater,
 			final BiConsumer<Long, Long> progressUpdater
 	) {
@@ -81,7 +82,10 @@ public class LayerFileSystemIntegration {
 		checkSessionPath(mapFolder);
 
 		final List<Layer> layerList = new ArrayList<>();
+		int counter = 0;
+		int total = mapFolder.list().length;
 		for(String sessionPath : mapFolder.list()) {
+			titleUpdater.accept(String.format("Adding many layers (%s/%s) ...", ++counter, total));
 			final File sessionFolder = new File(mapFolder,sessionPath);
 			try {
 				final Layer layer = addLayerFromSessionFolder(

@@ -13,6 +13,7 @@ import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -49,6 +50,11 @@ public class TrackedFolderDialog extends DialogScreen<Void> {
 	}
 
 	@Override
+	protected Image getIcon() {
+		return UIConstants.FOLDER_STAMP;
+	}
+
+	@Override
 	protected List<ButtonType> getButtonTypes() {
 		return Collections.singletonList(ButtonType.CLOSE);
 	}
@@ -61,8 +67,6 @@ public class TrackedFolderDialog extends DialogScreen<Void> {
 
 	private void initUI()	{
 
-		final Stage dialogStage = (Stage)getDialog().getDialogPane().getScene().getWindow();
-		dialogStage.getIcons().add(UIConstants.FOLDER_STAMP);
 		getDialog().setResizable(true);
 
 		removeFolder.setDisable(true);

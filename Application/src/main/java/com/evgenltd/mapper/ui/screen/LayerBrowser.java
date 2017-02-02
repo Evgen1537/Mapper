@@ -16,10 +16,8 @@ import javafx.beans.InvalidationListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -32,11 +30,8 @@ import java.util.stream.Collectors;
  */
 public class LayerBrowser extends AbstractScreen implements SelectionDispatcher.Agent {
 
-	private final VBox content = new VBox();
 	private final ListView<LayerDto> layerList = new ListView<>();
-	private final List<GlobalLayerView> globalLayerViewList = new ArrayList<>();
 
-	private final MapViewerWrapper mapViewerWrapper = UIContext.get().getMapViewerWrapper();
 	private final SelectionDispatcher selectionDispatcher = UIContext.get().getSelectionDispatcher();
 
 	private final Loader loader = Context.get().getLoader();
@@ -61,33 +56,15 @@ public class LayerBrowser extends AbstractScreen implements SelectionDispatcher.
 	}
 
 	private void initUI()	{
-		globalLayerViewList.add(new GlobalLayerView());
-		globalLayerViewList.add(new GlobalLayerView());
-		globalLayerViewList.add(new GlobalLayerView());
-		globalLayerViewList.add(new GlobalLayerView());
-		globalLayerViewList.add(new GlobalLayerView());
-		globalLayerViewList.add(new GlobalLayerView());
-
-		globalLayerViewList.forEach(view -> content.getChildren().add(view.getRoot()));
-		content.getChildren().add(layerList);
-		content.setSpacing(4);
-		content.setPadding(new Insets(4));
-		setRoot(content);
-
 		layerList.setCellFactory(param -> new LayerDtoListCell(layer -> trackerBean.isLayerCurrent(layer.getId())));
 		layerList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		layerList.setContextMenu(buildContextMenu());
+
+		setRoot(layerList);
 	}
 
 	private void loadData()	{
-		final List<LayerDto> globalLayerList = loader.loadGlobalLayerList();
-		final List<LayerDto> result = loader.loadSessionLayerList();
-
-		for(int i=0; i<globalLayerList.size(); i++)	{
-			final LayerDto layer = globalLayerList.get(i);
-			final GlobalLayerView view = globalLayerViewList.get(i);
-			view.setLayer(layer);
-		}
+		final List<LayerDto> result = loader.loadAllLayerDtoList();
 
 		applyLoadedData(result);
 
@@ -160,7 +137,6 @@ public class LayerBrowser extends AbstractScreen implements SelectionDispatcher.
 		return new ContextMenu(
 				commandManager.createMenuItem(UIConstants.GENERATE_LEVELS),
 				commandManager.createMenuItem(UIConstants.REFRESH_LAYER),
-				commandManager.createMenuItem(UIConstants.MERGE_WITH_GLOBAL),
 				commandManager.createMenuItem(UIConstants.MERGE_TOGETHER),
 				commandManager.createMenuItem(UIConstants.REMOVE),
 				new SeparatorMenuItem(),
@@ -178,7 +154,9 @@ public class LayerBrowser extends AbstractScreen implements SelectionDispatcher.
 						commandManager.createMenuItem(UIConstants.VISIBILITY_FULL),
 						commandManager.createMenuItem(UIConstants.VISIBILITY_PARTLY),
 						commandManager.createMenuItem(UIConstants.VISIBILITY_NONE)
-				)
+				),
+				new SeparatorMenuItem(),
+				commandManager.createMenuItem(UIConstants.PROPERTIES)
 		);
 
 	}

@@ -18,10 +18,7 @@ public class HomeTab extends AbstractScreen {
 	@FXML private MenuButton addLayerGroup;
 	@FXML private MenuItem addSession;
 	@FXML private MenuItem addManySessions;
-
-	@FXML private MenuButton mergeGroup;
-	@FXML private MenuItem mergeTogether;
-	@FXML private MenuItem mergeWithGlobal;
+	@FXML private Button mergeTogether;
 
 	@FXML private Button generateLevels;
 	@FXML private Button refreshLayer;
@@ -73,8 +70,7 @@ public class HomeTab extends AbstractScreen {
 		commandManager.configureMenuItem(UIConstants.ADD_LAYER_FROM_FILE_SYSTEM, addSession);
 		commandManager.configureMenuItem(UIConstants.ADD_MANY_LAYERS_FROM_FILE_SYSTEM, addManySessions);
 
-		commandManager.configureMenuItem(UIConstants.MERGE_WITH_GLOBAL, mergeWithGlobal);
-		commandManager.configureMenuItem(UIConstants.MERGE_TOGETHER, mergeTogether);
+		commandManager.configureButton(UIConstants.MERGE_TOGETHER, mergeTogether);
 
 		commandManager.configureButton(UIConstants.GENERATE_LEVELS, generateLevels);
 		commandManager.configureButton(UIConstants.REFRESH_LAYER, refreshLayer);

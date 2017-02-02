@@ -260,7 +260,6 @@ public class CommandManager implements SelectionDispatcher.Agent {
 		getCommand(UIConstants.REFRESH_LAYER).setDisabled(!isDefaultScope || selectedLayers == 0);
 		getCommand(UIConstants.FIND_MATCHES).setDisabled(!isDefaultScope || selectedLayers == 0);
 		getCommand(UIConstants.EXPORT_LAYER_TO_FOLDER).setDisabled(!isDefaultScope || selectedLayers == 0);
-		getCommand(UIConstants.MERGE_WITH_GLOBAL).setDisabled(!isDefaultScope || selectedLayers == 0);
 		getCommand(UIConstants.MERGE_TOGETHER).setDisabled(!isDefaultScope || selectedLayers < 2);
 		getCommand(UIConstants.BRING_LAYERS_TO_FRONT).setDisabled(!isDefaultScope || selectedLayers == 0);
 		getCommand(UIConstants.BRING_LAYERS_FORWARD).setDisabled(!isDefaultScope || selectedLayers == 0);
@@ -342,7 +341,6 @@ public class CommandManager implements SelectionDispatcher.Agent {
 		return new ContextMenu(
 				createMenuItem(UIConstants.GENERATE_LEVELS),
 				createMenuItem(UIConstants.REFRESH_LAYER),
-				createMenuItem(UIConstants.MERGE_WITH_GLOBAL),
 				createMenuItem(UIConstants.MERGE_TOGETHER),
 				createMenuItem(UIConstants.MARKER_EDIT_BEGIN),
 				createMenuItem(UIConstants.REMOVE),
@@ -361,7 +359,9 @@ public class CommandManager implements SelectionDispatcher.Agent {
 						createMenuItem(UIConstants.VISIBILITY_FULL),
 						createMenuItem(UIConstants.VISIBILITY_PARTLY),
 						createMenuItem(UIConstants.VISIBILITY_NONE)
-				)
+				),
+				new SeparatorMenuItem(),
+				createMenuItem(UIConstants.PROPERTIES)
 		);
 	}
 

@@ -58,21 +58,21 @@ public class Importer extends DialogScreen<Void> {
 
 		importerBean.setMessageConsumer(message -> Platform.runLater(() -> appendMessage(message)));
 
-		doImport = (Button)getDialog().getDialogPane().lookupButton(doImportButtonType);
+		doImport = lookupButton(doImportButtonType);
 		doImport.setDisable(true);
 		doImport.addEventFilter(ActionEvent.ACTION, event -> {
 			event.consume();
 			startImport();
 		});
 
-		cancel = (Button)getDialog().getDialogPane().lookupButton(cancelButtonType);
+		cancel = lookupButton(cancelButtonType);
 		cancel.setDisable(true);
 		cancel.addEventFilter(ActionEvent.ACTION, event -> {
 			event.consume();
 			cancelImport();
 		});
 
-		close = (Button)getDialog().getDialogPane().lookupButton(closeButtonType);
+		close = lookupButton(closeButtonType);
 		close.setDisable(false);
 	}
 

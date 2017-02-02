@@ -53,7 +53,7 @@ public class MarkerIconAdd extends DialogScreen<MarkerIcon> {
 
 		name.setOnKeyTyped(event -> verify());
 
-		buttonOk = (Button)getDialog().getDialogPane().lookupButton(ButtonType.OK);
+		buttonOk = lookupButton(ButtonType.OK);
 		buttonOk.setDisable(false);
 	}
 

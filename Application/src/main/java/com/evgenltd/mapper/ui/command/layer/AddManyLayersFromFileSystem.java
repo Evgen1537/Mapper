@@ -54,6 +54,7 @@ public class AddManyLayersFromFileSystem extends Command {
 
 				layerBean.addManyLayersFromSessionFolder(
 						selectedDirectory,
+						this::updateTitle,
 						this::updateMessage,
 						this::updateProgress
 				);

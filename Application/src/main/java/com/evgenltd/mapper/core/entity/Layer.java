@@ -30,6 +30,9 @@ public interface Layer extends Identified,Ordered,Movable {
 	String getSessionPath();
 	void setSessionPath(String sessionPath);
 
+	Boolean getPreventRemove();
+	void setPreventRemove(Boolean preventRemove);
+
 	Set<Tile> getTileSet();
 	void setTileSet(Set<Tile> tileSet);
 

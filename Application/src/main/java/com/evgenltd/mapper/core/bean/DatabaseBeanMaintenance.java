@@ -25,7 +25,7 @@ public class DatabaseBeanMaintenance extends AbstractBean {
 		final Long version = getVersion();
 		getLogger().info(String.format("Current database scheme version is [%s]",version));
 		if(version < 11L)	{
-			executeUpdate("/sql/scheme/init.sql",11L);
+			executeUpdate("/sql/scheme/init.sql",14L);
 			executeBatchUpdate("/sql/scheme/defaults.sql");
 			fillDefaultMarkerIconList();
 		}else {

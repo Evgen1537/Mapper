@@ -16,8 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Project: Mapper
@@ -54,6 +58,19 @@ public class SettingsDialog extends DialogScreen<Void> {
 	}
 
 	@Override
+	protected Image getIcon() {
+		return UIConstants.GEAR;
+	}
+
+	@Override
+	protected List<ButtonType> getButtonTypes() {
+		return Arrays.asList(
+				ButtonType.APPLY,
+				ButtonType.CANCEL
+		);
+	}
+
+	@Override
 	protected Void resultConverter(ButtonType buttonType) {
 		if(buttonType.equals(ButtonType.APPLY)) {
 			fillEntity(settings);
@@ -76,14 +93,7 @@ public class SettingsDialog extends DialogScreen<Void> {
 		trackerTab.setContent(trackerPane.getRoot());
 		trackerPane.initUI();
 
-		getDialog().getDialogPane().getButtonTypes().addAll(
-				ButtonType.APPLY,
-				ButtonType.CANCEL
-		);
-		final Stage dialogStage = (Stage)getDialog().getDialogPane().getScene().getWindow();
-		dialogStage.getIcons().add(UIConstants.GEAR);
-
-		buttonApply = (Button)getDialog().getDialogPane().lookupButton(ButtonType.APPLY);
+		buttonApply = lookupButton(ButtonType.APPLY);
 		buttonApply.addEventFilter(ActionEvent.ACTION, this::validate);
 		buttonApply.setDefaultButton(true);
 

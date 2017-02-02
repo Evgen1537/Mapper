@@ -7,6 +7,7 @@ import com.evgenltd.mapper.ui.cellfactory.LayerDtoListCell;
 import com.evgenltd.mapper.ui.util.UIConstants;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
@@ -26,9 +27,6 @@ public class LayerChooser extends DialogScreen<Long> {
 	public LayerChooser(final LayerType... layerTypes) {
 		super();
 
-		final Stage dialogStage = (Stage)getDialog().getDialogPane().getScene().getWindow();
-		dialogStage.getIcons().add(UIConstants.LAYER);
-
 		setRoot(layerListView);
 		getDialog().getDialogPane().setContent(layerListView);
 		layerListView.setCellFactory(param -> new LayerDtoListCell());
@@ -40,6 +38,11 @@ public class LayerChooser extends DialogScreen<Long> {
 	@Override
 	protected String getTitle() {
 		return "Select Layer";
+	}
+
+	@Override
+	protected Image getIcon() {
+		return UIConstants.LAYER;
 	}
 
 	@Override

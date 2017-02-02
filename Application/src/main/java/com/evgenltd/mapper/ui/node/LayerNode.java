@@ -110,24 +110,6 @@ public class LayerNode extends NodeGroup {
 	}
 
 	@Override
-	protected boolean setMoved(@NotNull Predicate<Node> changeCondition) {
-		return !layer.getType().isGlobal()
-				&& super.setMoved(changeCondition);
-	}
-
-	@Override
-	protected boolean setHighlighted(@NotNull Predicate<Node> changeCondition) {
-		return !layer.getType().isGlobal()
-				&& super.setHighlighted(changeCondition);
-	}
-
-	@Override
-	protected boolean setSelected(@NotNull Predicate<Node> changeCondition) {
-		return !layer.getType().isGlobal()
-				&& super.setSelected(changeCondition);
-	}
-
-	@Override
 	public void move(double worldDeltaX, double worldDeltaY) {
 		layer.setX(layer.getX() + Utils.toTileSize(worldDeltaX));
 		layer.setY(layer.getY() + Utils.toTileSize(worldDeltaY));

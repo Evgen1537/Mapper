@@ -27,23 +27,23 @@ public class Extractor extends Application {
 	private Main main;
 
 	public static void main(String[] args) {
-//		launch(args);
+		launch(args);
 
-		try {
-			Config.resurl = new URL(Constants.RES_ID_URL);
-		}catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
-
-		try {
-			Resource.setcache(ResCache.global);
-			final Resource.Pool pool = Resource.remote();
-			final Field parentField = pool.getClass().getDeclaredField("parent");
-			parentField.setAccessible(true);
-			parentField.set(pool, null);
-		}catch (NoSuchFieldException | IllegalAccessException e) {
-			throw new RuntimeException(e);
-		}
+//		try {
+//			Config.resurl = new URL(Constants.RES_ID_URL);
+//		}catch (MalformedURLException e) {
+//			throw new RuntimeException(e);
+//		}
+//
+//		try {
+//			Resource.setcache(ResCache.global);
+//			final Resource.Pool pool = Resource.remote();
+//			final Field parentField = pool.getClass().getDeclaredField("parent");
+//			parentField.setAccessible(true);
+//			parentField.set(pool, null);
+//		}catch (NoSuchFieldException | IllegalAccessException e) {
+//			throw new RuntimeException(e);
+//		}
 
 //		final Resource.Pool pool = new Resource.Pool();
 //		pool.add(new Resource.CacheSource(ResCache.global));
@@ -59,17 +59,17 @@ public class Extractor extends Application {
 //		final MapFile.Grid grid = MapFile.Grid.load(ResCache.global, 6220807755573809900L);
 //		final BufferedImage image = grid.render(new Coord(23,45));
 
-		final MapFile mapFile = MapFile.load(ResCache.global);
-		for (final Long segmentId : mapFile.knownsegs) {
-			mapFile.lock.readLock().tryLock();
-			try {
-				MapFile.Segment segment = mapFile.segments.get(segmentId);
-				System.err.println("");
-			} finally {
-				mapFile.lock.readLock().unlock();
-			}
-			break;
-		}
+//		final MapFile mapFile = MapFile.load(ResCache.global);
+//		for (final Long segmentId : mapFile.knownsegs) {
+//			mapFile.lock.readLock().tryLock();
+//			try {
+//				MapFile.Segment segment = mapFile.segments.get(segmentId);
+//				System.err.println("");
+//			} finally {
+//				mapFile.lock.readLock().unlock();
+//			}
+//			break;
+//		}
 
 
 	}

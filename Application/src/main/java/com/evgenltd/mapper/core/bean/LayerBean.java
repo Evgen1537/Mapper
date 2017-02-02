@@ -130,6 +130,7 @@ public class LayerBean extends AbstractBean {
 	@Transactional
 	public void addManyLayersFromSessionFolder(
 			final File mapFolder,
+			final Consumer<String> titleUpdater,
 			final Consumer<String> messageUpdater,
 			final BiConsumer<Long, Long> progressUpdater
 	)	{
@@ -140,6 +141,7 @@ public class LayerBean extends AbstractBean {
 				loader::loadTile,
 				layer -> getEntityManager().persist(layer),
 				tileBean::update,
+				titleUpdater,
 				messageUpdater,
 				progressUpdater
 		);

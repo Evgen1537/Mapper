@@ -1,94 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.MaskerPane?>
 
-
-<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.extractor.screen.Main">
-   <children>
-      <VBox fx:id="menuPane" alignment="CENTER" spacing="8.0">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evgenltd.extractor.screen.Main">
+   <left>
+      <StackPane BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleViewGameCache" prefHeight="70.0" prefWidth="150.0" text="View Game Cache" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleViewGameResources" prefHeight="70.0" prefWidth="150.0" text="View Game Resources" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-      <BorderPane fx:id="gameCachePane" visible="false">
-         <left>
-            <StackPane BorderPane.alignment="CENTER">
+            <VBox spacing="4.0">
                <children>
-                  <ListView fx:id="dataList" />
-                  <ProgressIndicator fx:id="dataListLoadIndicator" maxHeight="50.0" visible="false" />
-               </children>
-            </StackPane>
-         </left>
-         <center>
-            <VBox spacing="4.0" BorderPane.alignment="TOP_CENTER">
-               <children>
-                  <ImageView fx:id="cacheImageViewer" pickOnBounds="true" preserveRatio="true" />
-                  <TextArea fx:id="cacheFileDescription" VBox.vgrow="ALWAYS" />
+                  <TextField fx:id="quickSearch" onAction="#handleApplyFilter" promptText="Type filter and press Enter" />
+                  <ListView fx:id="dataList" VBox.vgrow="ALWAYS" />
                </children>
                <padding>
                   <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                </padding>
             </VBox>
-         </center>
-         <top>
-            <HBox spacing="4.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#handleBackToHome" text="Home" />
-               </children>
-               <padding>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-               </padding>
-            </HBox>
-         </top>
-      </BorderPane>
-      <BorderPane fx:id="resourcesPane" visible="false">
-         <left>
-            <TreeView fx:id="resourceTree" BorderPane.alignment="CENTER" />
-         </left>
-         <center>
-            <StackPane BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="noImageLabel" text="No image">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ProgressIndicator fx:id="resourceLoadingIndicator" maxWidth="50.0" visible="false" />
-                  <ImageView fx:id="resourceViewer" pickOnBounds="true" preserveRatio="true" visible="false" />
-               </children>
-            </StackPane>
-         </center>
-         <top>
-            <HBox spacing="4.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#handleBackToHome" text="Home" />
-               </children>
-               <padding>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-               </padding>
-            </HBox>
-         </top>
-      </BorderPane>
-   </children>
-</StackPane>
+            <MaskerPane fx:id="dataListLoadIndicator" />
+         </children>
+      </StackPane>
+   </left>
+   <center>
+      <VBox spacing="4.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <ImageView fx:id="cacheImageViewer" pickOnBounds="true" preserveRatio="true" />
+            <TextArea fx:id="cacheFileDescription" editable="false" VBox.vgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

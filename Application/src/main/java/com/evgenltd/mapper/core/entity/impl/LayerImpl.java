@@ -42,6 +42,8 @@ public class LayerImpl implements Layer {
 	@Column(name = "session_path")
 	private String sessionPath;
 
+	private Integer preventRemove;
+
 	@OneToMany(
 			mappedBy = "layer",
 			fetch = FetchType.LAZY,
@@ -126,6 +128,15 @@ public class LayerImpl implements Layer {
 	@Override
 	public void setSessionPath(String sessionPath) {
 		this.sessionPath = sessionPath;
+	}
+
+	@Override
+	public Boolean getPreventRemove() {
+		return preventRemove != null && preventRemove == 1;
+	}
+	@Override
+	public void setPreventRemove(Boolean preventRemove) {
+		this.preventRemove = preventRemove ? 1 : 0;
 	}
 
 	@Override
