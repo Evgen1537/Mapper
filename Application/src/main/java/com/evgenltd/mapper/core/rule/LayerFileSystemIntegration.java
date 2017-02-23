@@ -17,10 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * Project: Mapper
@@ -37,7 +34,7 @@ public class LayerFileSystemIntegration {
 			final Supplier<Long> orderNumberGenerator,
 			final Function<TileInfo, Optional<Tile>> tileProvider,
 			final Consumer<Layer> layerPersistent,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
 			final Consumer<String> messageUpdater,
 			final BiConsumer<Long, Long> progressUpdater
 	) {
@@ -73,7 +70,7 @@ public class LayerFileSystemIntegration {
 			final Supplier<Long> orderNumberGenerator,
 			final Function<TileInfo, Optional<Tile>> tileProvider,
 			final Consumer<Layer> layerPersistent,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
 			final Consumer<String> titleUpdater,
 			final Consumer<String> messageUpdater,
 			final BiConsumer<Long, Long> progressUpdater

@@ -16,12 +16,13 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class TileBean extends AbstractBean {
 
 	@Transactional
-	public void update(final Tile tile)	{
+	public Tile update(final Tile tile)	{
 
 		if(tile.getId() == null)	{
 			getEntityManager().persist(tile);
+			return tile;
 		}else {
-			getEntityManager().merge(tile);
+			return getEntityManager().merge(tile);
 		}
 
 	}

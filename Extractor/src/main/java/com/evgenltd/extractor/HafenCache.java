@@ -3,10 +3,9 @@ package com.evgenltd.extractor;
 import com.evgenltd.extractor.entity.CacheFile;
 import com.evgenltd.extractor.entity.CacheFileBuilder;
 import com.evgenltd.extractor.screen.GameCacheModel;
-import haven.Config;
-import haven.ResCache;
-import haven.Resource;
+import haven.*;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,9 +17,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -114,4 +111,55 @@ public class HafenCache {
 		final BufferedImage awtImage = image.img;
 		return SwingFXUtils.toFXImage(awtImage, null);
 	}
+
+	public Map<Point2D, Long> loadMapIndex() {
+
+		final MapFile mapFile = MapFile.load(ResCache.global);
+		final Map<Point2D,Long> resultIndex = new HashMap<>();
+
+		mapFile.lock.readLock().tryLock();
+
+		try {
+			for (final Long segmentId : mapFile.knownsegs) {
+
+				final MapFile.Segment segment = mapFile.segments.get(segmentId);
+				final Map<Coord,Long> index = getPrivateValue(segment, "map");
+
+				index.forEach((coord,id) -> resultIndex.put(new Point2D(coord.x, coord.y), id));
+
+			}
+
+			return resultIndex;
+
+		} finally {
+			mapFile.lock.readLock().unlock();
+		}
+
+	}
+
+	@Nullable
+	public Image loadGrid(@NotNull final Long id) {
+		final MapFile.Grid grid = MapFile.Grid.load(ResCache.global, id);
+		if (grid == null) {
+			return null;
+		}
+		final BufferedImage awtImage = grid.render(new Coord());
+		return SwingFXUtils.toFXImage(awtImage,null);
+	}
+
+	// utils
+
+	@SuppressWarnings("unchecked")
+	private <T> T getPrivateValue(@NotNull final Object object, @NotNull final String fieldName) {
+
+		try {
+			final Field field = object.getClass().getDeclaredField(fieldName);
+			field.setAccessible(true);
+			return (T) field.get(object);
+		}catch (NoSuchFieldException | IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
 }

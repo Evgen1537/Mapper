@@ -1,9 +1,11 @@
 package com.evgenltd.mapper.ui.screen.settings;
 
 import com.evgenltd.mapper.core.entity.Settings;
+import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.ui.UIContext;
 import com.evgenltd.mapper.ui.component.globalmap.*;
 import com.evgenltd.mapper.ui.screen.AbstractScreen;
+import com.evgenltd.mapper.ui.screen.LayerChooser;
 import com.evgenltd.mapper.ui.util.UIConstants;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,13 +28,13 @@ public class GeneralPane extends AbstractScreen {
 	@FXML private TextField partlyVisibilityAlpha;
 	@FXML private CheckBox showMarkerQuality;
 
-//	@FXML private Label globalMapStatus;
-//	@FXML private ProgressIndicator globalMapLinkingIndicator;
-//	@FXML private Hyperlink globalMapStopLinking;
-//	@FXML private Hyperlink globalMapReLink;
-//	@FXML private Hyperlink globalMapUnLink;
+	@FXML private Label globalMapStatus;
+	@FXML private ProgressIndicator globalMapLinkingIndicator;
+	@FXML private Hyperlink globalMapStopLinking;
+	@FXML private Hyperlink globalMapReLink;
+	@FXML private Hyperlink globalMapUnLink;
 
-//	private GlobalMapModel globalMapModel = UIContext.get().getGlobalMapModel();
+	private GlobalMapModel globalMapModel = UIContext.get().getGlobalMapModel();
 
 	public GeneralPane() {
 		initUI();
@@ -41,14 +43,14 @@ public class GeneralPane extends AbstractScreen {
 	void initUI()	{
 		partlyVisibilityAlpha.textProperty().addListener(param -> partlyVisibilityAlphaTextBoxChanged());
 		partlyVisibilityAlphaSlider.valueProperty().addListener(param -> partlyVisibilityAlphaSliderChanged());
-//		globalMapModel.setIntegrationStatusChangeCallback(this::updateGlobalMapIntegrationStatus);
+		globalMapModel.setIntegrationStatusChangeCallback(this::updateGlobalMapIntegrationStatus);
 	}
 
 	void fillUI(@NotNull final Settings settings)	{
 		overwriteTiles.setSelected(settings.isOverwriteTiles());
 		partlyVisibilityAlphaSlider.setValue(settings.getPartlyVisibilityAlpha() * 100);
 		showMarkerQuality.setSelected(settings.isShowMarkerQuality());
-//		updateGlobalMapIntegrationStatus(globalMapModel.getIntegrationStatus());
+		updateGlobalMapIntegrationStatus(globalMapModel.getIntegrationStatus());
 	}
 
 	void fillEntity(@NotNull final Settings settings)	{
@@ -90,7 +92,7 @@ public class GeneralPane extends AbstractScreen {
 	}
 
 	//
-/*
+
 	private void updateGlobalMapIntegrationStatus(@NotNull final GlobalMapModel.Status status) {
 
 		if (Objects.equals(status, GlobalMapModel.Status.IN_PROGRESS)) {
@@ -136,11 +138,12 @@ public class GeneralPane extends AbstractScreen {
 
 	@FXML
 	private void handleGlobalMapReLink(ActionEvent actionEvent) {
-		globalMapModel.reLinkGlobalMap();
+		final LayerChooser layerChooser = new LayerChooser(LayerType.values());
+		layerChooser.showAndWait().ifPresent(layerId -> globalMapModel.reLinkGlobalMap(layerId));
 	}
 
 	@FXML
 	private void handleGlobalMapUnLink(ActionEvent actionEvent) {
 		globalMapModel.unLinkGlobalMap();
-	}*/
+	}
 }

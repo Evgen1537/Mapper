@@ -22,6 +22,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * Project: Mapper
@@ -37,7 +38,7 @@ public class LayerRefreshing {
 			final Layer layer,
 			final boolean isOverwrite,
 			final Function<TileInfo,Optional<Tile>> tileProvider,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
 			final Consumer<String> messageUpdater,
 			final BiConsumer<Long,Long> progressUpdater
 	)	{
@@ -83,7 +84,7 @@ public class LayerRefreshing {
 			final Layer layer,
 			final boolean isOverwrite,
 			final Function<TileInfo,Optional<Tile>> tileProvider,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
 			final BiConsumer<Long,Long> progressUpdater
 	)	{
 		final File sessionFolder = new File(layer.getSessionPath());
@@ -134,7 +135,7 @@ public class LayerRefreshing {
 			final Layer layer,
 			final boolean isOverwrite,
 			final Function<TileInfo,Optional<Tile>> tileProvider,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
 			final Map<Point2D,Long> idsDescriptor
 	)	{
 
@@ -164,9 +165,9 @@ public class LayerRefreshing {
 		tile.setHash(hash);
 		tile.setGridId(gridId);
 
-		tilePersistent.accept(tile);
+		final Tile savedTile = tilePersistent.apply(tile);
 
-		return Optional.of(LiteTile.fromTile(tile));
+		return Optional.of(LiteTile.fromTile(savedTile));
 
 	}
 

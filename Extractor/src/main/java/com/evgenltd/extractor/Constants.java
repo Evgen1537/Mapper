@@ -21,9 +21,6 @@ public class Constants {
 			+ File.separator + "Haven and Hearth"
 			+ File.separator + "data";
 
-	public static final Image FOLDER = new Image("/image/folder-horizontal.png");
-	public static final Image FILE = new Image("/image/blue-document.png");
-
 	public static final double MAX_SIZE = 400;
 	public static final int TILE_SIZE = 100;
 

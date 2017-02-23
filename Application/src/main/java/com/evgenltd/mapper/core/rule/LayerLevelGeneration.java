@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +29,7 @@ public class LayerLevelGeneration {
 			final Layer layer,
 			final List<? extends Tile> sourceTileList,
 			final Function<TileInfo,Optional<Tile>> tileProvider,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
 			final Consumer<String> messageUpdater,
 			final BiConsumer<Long,Long> progressUpdater
 	)	{
@@ -67,7 +68,7 @@ public class LayerLevelGeneration {
 			final Map<Point2D, Tile> currentIteration,
 			final Map<Point2D, Tile> nextIteration,
 			final Function<TileInfo,Optional<Tile>> tileProvider,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
 			final BiConsumer<Long,Long> progressUpdater
 	)	{
 
@@ -103,9 +104,9 @@ public class LayerLevelGeneration {
 					tileProvider
 			);
 
-			tilePersistent.accept(stitchedTile);
+			final Tile savedTile = tilePersistent.apply(stitchedTile);
 
-			nextIteration.put(nextLevelPoint, LiteTile.fromTile(stitchedTile));
+			nextIteration.put(nextLevelPoint, LiteTile.fromTile(savedTile));
 
 			progressUpdater.accept(workDone++, (long)currentIteration.size());
 

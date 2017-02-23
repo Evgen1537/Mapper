@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +29,7 @@ public class LayerMerge {
             final boolean isOverwriteTile,
             final Function<Layer,List<Tile>> firstLevelTileListProvider,
             final Function<TileInfo,Optional<Tile>> tileProvider,
-			final Consumer<Tile> tilePersistent,
+			final UnaryOperator<Tile> tilePersistent,
             final Consumer<String> messageUpdater,
             final BiConsumer<Long,Long> progressUpdater
     )  {
@@ -70,11 +71,13 @@ public class LayerMerge {
 
 		}
 
-		targetLayerFirstLevelAffectedTiles.forEach(tilePersistent);
+		final List<Tile> savedTargetLayerFistLevelAffectedTiles = targetLayerFirstLevelAffectedTiles.stream()
+				.map(tilePersistent)
+				.collect(Collectors.toList());
 
         LayerLevelGeneration.execute(
                 targetLayer,
-                targetLayerFirstLevelAffectedTiles,
+				savedTargetLayerFistLevelAffectedTiles,
                 tileProvider,
 				tilePersistent,
                 messageUpdater,

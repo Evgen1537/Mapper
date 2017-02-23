@@ -66,7 +66,10 @@ public class LayerLevelGenerationTest {
 						tile7
 				),
 				tileInfo -> Optional.empty(),
-				result::add,
+				tile -> {
+					result.add(tile);
+					return tile;
+				},
 				msg -> {},
 				(aLong, aLong2) -> {}
 		);

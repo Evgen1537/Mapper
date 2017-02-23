@@ -13,11 +13,16 @@ import com.mashape.unirest.request.body.MultipartBody;
 import math.geom2d.Point2D;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.json.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,6 +51,7 @@ public class GlobalMapBean extends AbstractBean {
 	private static final String TILES_ADD_GUID_FIELD = "guid";
 	private static final String TILES_ADD_X_FIELD = "x";
 	private static final String TILES_ADD_Y_FIELD = "y";
+	private static final String TILES_ADD_GRID_ID_FIELD = "grid_id";
 	private static final String TILES_ADD_TILE_FIELD = "tile";
 
 	private static final String RESPONSE_MSG_KEY = "msg";
@@ -71,16 +77,23 @@ public class GlobalMapBean extends AbstractBean {
 		Objects.requireNonNull(sessionName);
 		final String user = getUser();
 
-		final Map<String,Object> parameters = new HashMap<>();
-		parameters.put(SESSIONS_ADD_USER_FIELD, user);
-		parameters.put(SESSIONS_ADD_SESSION_FIELD, sessionName);
-		final String responseBody = request(SESSIONS_ADD_URL, parameters);
+		try {
 
-		if (responseBody.contains("<html")) {
-			return wrapErrorResponse(responseBody);
+			final String responseBody = Unirest.post(SESSIONS_ADD_URL)
+					.field(SESSIONS_ADD_USER_FIELD, user)
+					.field(SESSIONS_ADD_SESSION_FIELD, sessionName)
+					.asString()
+					.getBody();
+
+			if (responseBody.contains("<html")) {
+				return wrapErrorResponse(responseBody);
+			}
+
+			return parse(responseBody, json -> json.getString(RESPONSE_GUID_KEY));
+
+		}catch (UnirestException e) {
+			throw new GlobalMapException("An error has occurred during acquiring GUID", e);
 		}
-
-		return parse(responseBody, json -> json.getString(RESPONSE_GUID_KEY));
 
 	}
 
@@ -94,8 +107,18 @@ public class GlobalMapBean extends AbstractBean {
 	public GlobalMapResponse<Point2D> lockSession(@NotNull final String guid) throws GlobalMapException {
 
 		Objects.requireNonNull(guid);
-		final String responseBody = request(SESSIONS_LOCK_URL, Collections.singletonMap(SESSIONS_LOCK_GUID_FIELD, guid));
-		return parse(responseBody, this::lockSessionResponseConverter);
+
+		try {
+			final String responseBody = Unirest.post(SESSIONS_LOCK_URL)
+					.field(SESSIONS_LOCK_GUID_FIELD, guid)
+					.asString()
+					.getBody();
+
+			return parse(responseBody, this::lockSessionResponseConverter);
+
+		}catch (UnirestException e) {
+			throw new GlobalMapException("An error has occurred during acquiring matching result", e);
+		}
 
 	}
 
@@ -132,83 +155,39 @@ public class GlobalMapBean extends AbstractBean {
 		// todo hide cache implementation
 		final Long imageId = Utils.getId(tile.getImageEntity());
 		final Picture picture = imageCache.getImage(imageId);
-		final byte[] imageBytes = Utils.imageToByteArray(picture.getImage());
-		final ByteArrayBody byteBody = new ByteArrayBody(imageBytes, ContentType.APPLICATION_OCTET_STREAM, "");
+		final byte[] imageBytes = picture.getContent();
+		final ByteArrayBody byteBody = new ByteArrayBody(imageBytes, null);
 
-		final Map<String,Object> parameters = new HashMap<>();
-		parameters.put(TILES_ADD_GUID_FIELD, guid);
-		parameters.put(TILES_ADD_X_FIELD, tile.getX());
-		parameters.put(TILES_ADD_Y_FIELD, tile.getY());
-		parameters.put(TILES_ADD_TILE_FIELD, byteBody);
-		final String responseBody = request(TILES_ADD_URL, parameters);
+		try {
 
-		if (responseBody.contains("<html")) {
-			return wrapErrorResponse(responseBody);
-		}
+			final String responseBody = Unirest.post(TILES_ADD_URL)
+					.field(TILES_ADD_GUID_FIELD, guid)
+					.field(TILES_ADD_X_FIELD, tile.getX().intValue())
+					.field(TILES_ADD_Y_FIELD, tile.getY().intValue())
+					.field(TILES_ADD_GRID_ID_FIELD, tile.getGridId())
+					.field(TILES_ADD_TILE_FIELD, byteBody, true)
+					.asString()
+					.getBody();
 
-		return parse(responseBody, json -> {
-			final JsonValue value = json.get(RESPONSE_REASON_KEY);
-			if (value == JsonValue.NULL) {
-				return null;
+			if (responseBody.contains("<html")) {
+				return wrapErrorResponse(responseBody);
 			}
-			return value.toString();
-		});
+
+			return parse(responseBody, json -> {
+				final JsonValue value = json.get(RESPONSE_REASON_KEY);
+				if (value == JsonValue.NULL) {
+					return null;
+				}
+				return value.toString();
+			});
+
+		}catch (UnirestException e) {
+			throw new GlobalMapException(String.format("An error has occurred during adding tile [%s]", tile.getGridId()), e);
+		}
 
 	}
 
 	// utils
-
-	private String request(@NotNull final String url, @NotNull final Map<String,Object> parameters) {
-
-		try {
-
-			final HttpRequestWithBody httpRequest = Unirest.post(url);
-			MultipartBody body = null;
-
-			for (final Map.Entry<String, Object> entry : parameters.entrySet()) {
-
-				if (body != null) {
-					if (entry.getValue() instanceof ByteArrayBody) {
-						body = body.field(entry.getKey(), entry.getValue(), true);
-					} else {
-						body = body.field(entry.getKey(), entry.getValue());
-					}
-				} else {
-					body = httpRequest.field(entry.getKey(), entry.getValue());
-				}
-			}
-
-			if (body == null) {
-				return httpRequest.asString().toString();
-			}
-
-			return body.asString().getBody();
-
-		}catch (UnirestException e) {
-
-			throw new GlobalMapException(
-					String.format(
-							"An exception has occurred on post request, %s",
-							Objects.toString(parameters)
-					),
-					e
-			);
-
-		}
-
-	}
-
-	private Object processValue(final Object value) {
-
-		if (value instanceof byte[]) {
-
-
-
-		}
-
-		return value;
-
-	}
 
 	private <T> GlobalMapResponse<T> parse(@NotNull final String responseBody, @NotNull final Function<JsonObject,T> dataConverter) {
 

@@ -5,8 +5,11 @@ import com.evgenltd.mapper.core.bean.Loader;
 import com.evgenltd.mapper.core.bean.GlobalMapBean;
 import com.evgenltd.mapper.core.bean.SettingsBean;
 import com.evgenltd.mapper.core.entity.Layer;
+import com.evgenltd.mapper.core.entity.Picture;
 import com.evgenltd.mapper.core.entity.Tile;
 import com.evgenltd.mapper.core.entity.dto.GlobalMapResponse;
+import com.evgenltd.mapper.core.entity.impl.PictureImpl;
+import com.evgenltd.mapper.core.entity.impl.TileImpl;
 import com.evgenltd.mapper.core.enums.LayerType;
 import com.evgenltd.mapper.core.exception.GlobalMapException;
 import com.evgenltd.mapper.core.util.Utils;
@@ -22,6 +25,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -54,12 +59,12 @@ public class GlobalMapModel {
 		return integrationStatus;
 	}
 
-	public void reLinkGlobalMap() {
+	public void reLinkGlobalMap(@NotNull final Long layerId) {
 		final Task<Void> linkingTask = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
 				updateTitle("Linking global map");
-				doLinkGlobalMap();
+				doLinkGlobalMap(layerId);
 				return null;
 			}
 
@@ -68,7 +73,7 @@ public class GlobalMapModel {
 				onLinkCompleted();
 				Message.information()
 						.title(GlobalMapModel.GENERIC_TITLE)
-						.text("Linking cancelled")
+						.text("Linking completed")
 						.publish();
 			}
 
@@ -81,11 +86,6 @@ public class GlobalMapModel {
 			protected void failed() {
 				log.error(getException().getMessage(), getException());
 				onLinkFailed();
-				UIUtils.showAlert(
-						Alert.AlertType.ERROR,
-						GlobalMapModel.GENERIC_TITLE,
-						getException().getMessage()
-				);
 			}
 		};
 		UIContext.get().submit(UIConstants.GLOBAL_MAP_INTEGRATION, linkingTask);
@@ -113,7 +113,7 @@ public class GlobalMapModel {
 
 	//
 
-	private void doLinkGlobalMap() {
+	private void doLinkGlobalMap(@NotNull final Long layerId) {
 
 		unLinkGlobalMap();
 		integrationStatus = Status.IN_PROGRESS;
@@ -130,13 +130,9 @@ public class GlobalMapModel {
 		Utils.checkInterruption();
 
 		final List<String> rejectedTiles = new ArrayList<>();
-		final Optional<Layer> groundLayer = loader.loadLayerListByTypes(Collections.singleton(LayerType.GROUND)).stream().findFirst();
-		if (!groundLayer.isPresent()) {
-			throw new IllegalStateException("Ground layer not found");
-		}
 
-		final List<Tile> groundLayerFirstLevelTileList = loader.loadTileList(groundLayer.get().getId(), ZLevel.Z1);
-		groundLayerFirstLevelTileList.stream().limit(1).forEach(tile -> {
+		final List<Tile> layerFirstLevelTileList = loader.loadTileList(layerId, ZLevel.Z1);
+		layerFirstLevelTileList.forEach(tile -> {
 
 			Utils.checkInterruption();
 
@@ -148,7 +144,6 @@ public class GlobalMapModel {
 		});
 
 		if (!rejectedTiles.isEmpty()) {
-			// todo publish list of rejected tiles
 			Message
 					.information()
 					.title(GlobalMapModel.GENERIC_TITLE)
